@@ -1,0 +1,230 @@
+body{
+    background-color:#DEDFE3;
+    
+}
+.default-input{
+    width: 450px;
+    height: 48px;
+    top: 558px;
+    left: 995px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+.login-btn-container{
+    display: flex;
+  justify-content: space-around;
+}
+.login-label{
+    width: 31px;
+    height: 15px;
+    top: 574px;
+    left: 1005px;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+        letter-spacing: 0em;
+text-align: left;
+}
+.default-button{
+    width: 367px;
+    height: 48px;
+    top: 700px;
+    left: 994px;
+    border-radius: 12px;
+    border: none;
+    background: #6063E9;
+    margin-top: 20px;
+    color: #FFFFFF;;
+}
+.login-p{
+    font-family: Source Sans Pro;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: center;
+    
+}
+.apps-login-button{
+    font-family: Inter;
+font-size: 12px;
+font-weight: 700;
+line-height: 15px;
+padding-top: 5px;
+letter-spacing: 0em;
+text-align: center;
+width: 119px;
+height: 48px;
+top: 793px;
+left: 994px;
+border: none;
+margin-left: 5px;
+border-radius: 12px;
+background: #F0F1F3;
+
+}
+.login-h3{
+    font-family: Source Sans Pro;
+font-size: 16px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0em;
+text-align: center;
+
+font-family: Inter;
+font-size: 16px;
+font-weight: 700;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: center;
+
+}
+.login-h2{
+    font-family: Source Sans Pro;
+font-size: 32px;
+font-weight: 700;
+line-height: 40px;
+letter-spacing: 0em;
+text-align: left;
+}
+.login-image{
+max-width: 100%; /* Responsive image */
+width: 850px;
+height: auto;
+display: block;
+position: absolute;
+overflow: hidden;
+top: -5%;
+left: 4%;
+margin-top: 100px;
+margin-left: auto;
+margin-right: auto;
+border-radius: 51px;
+display: block;
+    
+}
+.login-darkmode{
+    
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 35px;
+    left: 195vh;
+    border: 3px;
+    
+}
+.register
+{
+    top: calc(50% - 50px);
+}
+.login {
+    top:50%
+}
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    transform: translateY(-30%);
+    right: 15%; /* Center horizontally */
+    max-width: 400px; /* Limit width */
+    align-items: center; /* Center elements horizontally */
+    justify-content: center;
+}
+::placeholder {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0em;
+    padding-left: 10px;
+    text-align: left;
+    color:#000000;
+    ;
+
+  }
+  .default-input
+ {
+    max-width: 400px; /* Full width minus margin */
+    margin: 5px; /* Add margin */
+    background-color: #EDEFF2;
+}
+
+
+
+.black {
+  background-color: black;
+}
+.gray {
+  background-color: #454545;
+}
+.purple
+{
+  background-color: #6063E9;
+}
+  .default-button:active {
+    transform: translateY(2px); /* Move the button down by 2 pixels when pressed */
+  }
+  /*dark mode */
+  .dark-mode .default-input{
+    background: #454545;
+  }
+  .dark-mode .apps-login-button{
+    background: #454545;
+    color: #FFFFFF;
+  }
+  .dark-mode .login-h2{
+    color: #FFFFFF;
+  }
+  .dark-mode .login-h3{
+    color: #FFFFFF;
+  }
+  .dark-mode .login-p{
+    color: #FFFFFF;
+  }
+  
+  .dark-mode ::placeholder
+  {
+    color: #FFFFFF;
+  }
+  .dark-mode body{
+    background-color: #1F1F1F;
+  }
+  @media only screen and (max-width: 75%) {
+    .login-form {
+        width: 80%; /* Adjust width */
+        right: auto; /* Remove right positioning */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%) translateY(-30%); /* Center vertically */
+    }
+    .login-image{
+        width: 80%; /* Adjust width */
+        right: auto; /* Remove right positioning */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%) translateY(-30%);
+    }
+}
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3d35a2; /* Color to cover the screen during transition */
+  z-index: 1;
+  animation: extend-color 1s forwards;
+}
+
+@keyframes extend-color {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(100);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,13 @@
+.authlink-submit
+{
+    margin-bottom: 20px; 
+}
+.authlink-container{
+    display: flex; /* Use flexbox */
+    align-items: center;
+}
+.authlink-container label{
+    margin-right:10px;
+    flex-grow: 0.1;
+    
+}
