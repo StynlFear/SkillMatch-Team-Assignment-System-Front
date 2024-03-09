@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
 
-function CreateProjectPage() {
+function UpdateProjectPage() {
   // State variables to store the form input values
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -122,15 +122,18 @@ function CreateProjectPage() {
           >
             <option value="not_started">Not Started</option>
             <option value="starting">Starting</option>
+            <option value="starting">In Progress</option>
+            <option value="starting">Closing</option>
+            <option value="starting">Closed</option>
           </select>
         </div>
         <div>
           <RoleSelectionPage selectedRoles={selectedRoles} onSelectRole={handleSelectRole} />
         </div>
-        <button type="submit">Create Project</button>
+        <button type="submit">Update Project</button>
       </form>
     </div>
   );
 }
 
-export default CreateProjectPage;
+export default UpdateProjectPage;
