@@ -1,13 +1,84 @@
-.authlink-submit
-{
-    margin-bottom: 20px; 
-}
-.authlink-container{
-    display: flex; /* Use flexbox */
-    align-items: center;
-}
-.authlink-container label{
-    margin-right:10px;
-    flex-grow: 0.1;
-    
-}
+/* Generate link container styles */
+.generate-link-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Generate link title styles */
+  .generate-link-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  /* Generate link description styles */
+  .generate-link-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Generate link email styles */
+  .generate-link-email {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Generate link input styles */
+  .generate-link-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  /* Generate link submit button styles */
+  .generate-link-submit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .generate-link-submit:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Generate link button styles */
+  .generate-link-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
+  }
+  
+  .generate-link-button:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Generate link link styles */
+  .generate-link-link {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
