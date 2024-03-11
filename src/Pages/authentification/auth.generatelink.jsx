@@ -1,54 +1,53 @@
 import React, { useState } from "react";
 import Input from "../../Components/Inputs/auth.inputs";
-import SubMitButton from "../../Components/Buttons/submit.button";
+import SubmitButton from "../../Components/Buttons/submit.button";
+
+
 function GenerateLinkPage() {
   const [randomLink, setRandomLink] = useState("");
+  const [email, setEmail] = useState("");
 
   // Function to generate a random link
   const generateRandomLink = () => {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < 10; i++) {
-      result += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
-    }
-    setRandomLink("https://skillmatchup.com/" + result);
+    const organizationId = "3853ff98-bb6b-4dd3-992f-d04d0cf53349"; // Replace 'your-organization-id' with the actual organization ID
+    const link = `http://localhost:5173/worker/${organizationId}`;
+    setRandomLink(link);
+  };
+
+  const sendInvite = () => {
+    // Logic to send invite
+    console.log("Invite sent to:", email);
   };
 
   return (
-    <div>
-      <h1>Share the organization link</h1>
-      <p>Give the workers acces to this organization</p>
-      <p>Email</p>
-      <div className="authlink-container">
-        <label>
-          <Input
+    <div  className="generate-link-container">
+      <h1 className="generate-link-title ">Share the organization link</h1>
+      <p className="generate-link-description">Give the workers access to this organization</p>
+      <p className="generate-link-description">Email</p>
+      <div>
+        <label className="generate-link-email">
+          <input
+          className={"generate-link-input"}
             type="Email"
             placeholder="Email"
-            style={
-              {
-                
-              }
-            }
-            maxWidth="400px" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <SubMitButton
-  className="black authlink-submit"
-  style={{ maxWidth: "20px" }}
->
-  Send Invite
-</SubMitButton>
+        <SubmitButton className="generate-link-submit" onClick={sendInvite}>
+          Send Invite
+        </SubmitButton>
       </div>
-      <button onClick={generateRandomLink}>Generate Link</button>
+      <button className="generate-link-button" onClick={generateRandomLink}>Generate Link</button>
       {randomLink && (
         <div>
           <h2>Random Link:</h2>
-          <a href={randomLink} target="_blank" rel="noopener noreferrer">
-            {randomLink}
-          </a>
+          <input
+  className="generate-link-input"
+  type="text"
+  value={randomLink}
+  readOnly
+/>
         </div>
       )}
     </div>

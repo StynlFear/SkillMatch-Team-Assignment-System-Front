@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import SubmitButton from "../../Components/Buttons/submit.button";
 import AppButton from "../../Components/Buttons/app.button";
 import Input from "../../Components/Inputs/auth.inputs";
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
 function WorkerRegister() {
+  const { organizationId } = useParams(); // Extract organizationId from URL
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -37,13 +39,11 @@ function WorkerRegister() {
     }
 
     try {
-      const response = await axios.post(`${apiUrl}/api/signup`, {
+      const response = await axios.post(`${apiUrl}/api/v1/user/signup`, {
         name,
         email,
         password,
-        organizationName,
-        headquartersAddress,
-        roles: ["admin", "user"],
+        organizationId,
       });
       console.log("Registration Successful:", response.data);
       // Handle successful registration
@@ -59,10 +59,6 @@ function WorkerRegister() {
     } else {
       setImageSrc("../src/assets/sun.svg"); // Dark mode: sun image
     }
-  };
-  const handleLogout = () => {
-    setEmail("");
-    setPassword("");
   };
 
   return (

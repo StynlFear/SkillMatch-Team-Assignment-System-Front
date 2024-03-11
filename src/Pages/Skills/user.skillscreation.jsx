@@ -3,7 +3,6 @@ import axios from 'axios';
 import "../../css/skill.createskill.css";
 
 const SkillForm = () => {
-  // Define the initial state for new skill
   const initialSkillState = {
     category: '',
     name: '',
@@ -12,10 +11,8 @@ const SkillForm = () => {
     departments: [],
   };
 
-  // State variables to manage form data
   const [newSkill, setNewSkill] = useState(initialSkillState);
 
-  // Handler function to update form data on input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewSkill({
@@ -24,23 +21,17 @@ const SkillForm = () => {
     });
   };
 
-  // Handler function to submit the form data
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send POST request to create new skill
       const response = await axios.post('/api/skills', newSkill);
-      // Handle successful creation
       console.log('Skill created:', response.data);
-      // Reset form after submission
       setNewSkill(initialSkillState);
     } catch (error) {
-      // Handle errors
       console.error('Error creating skill:', error);
     }
   };
 
-  // Hardcoded skill categories for demonstration
   const skillCategories = ['Programming Language', 'Libraries', 'Frameworks', 'Software Engineering'];
 
   return (

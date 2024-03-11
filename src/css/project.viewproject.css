@@ -1,0 +1,46 @@
+/* View project container styles */
+.view-project-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* View project title styles */
+  .view-project-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  /* View project option styles */
+  .view-project-option {
+    margin-bottom: 10px;
+  }
+  
+  /* View project label styles */
+  .view-project-label {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* View project value styles */
+  .view-project-value {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  
+  /* Employee search styles */
+  .employee-search {
+    margin-top: 30px;
+  }
+  

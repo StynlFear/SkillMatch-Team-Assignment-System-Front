@@ -25,7 +25,7 @@ function SkillUpdateForm() {
     // Function to fetch skill data from the API
     const fetchSkillData = async () => {
       try {
-        const response = await axios.get(`YOUR_API_ENDPOINT/${skillId}`);
+        const response = await axios.get(`${apiUrl}/api/v1/user/${skillId}`);
         const skillData = response.data; // Assuming response.data contains skill information
         // Update state with skill information
         setSkill({
@@ -47,7 +47,7 @@ function SkillUpdateForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`YOUR_API_ENDPOINT/${skillId}`, skill);
+      const response = await axios.put(`${apiUrl}/api/v1/user/${skillId}`, skill);
       // Handle response accordingly
     } catch (error) {
       console.error('Error updating skill:', error);

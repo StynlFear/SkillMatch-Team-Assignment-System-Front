@@ -1,0 +1,77 @@
+.employee-search-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Employee search title styles */
+  .employee-search-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  /* Employee search option styles */
+  .employee-search-option {
+    margin-bottom: 10px;
+  }
+  
+  /* Employee search label styles */
+  .employee-search-label {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Employee search checkbox styles */
+  .employee-search-checkbox {
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+  
+  /* Employee search number input styles */
+  .employee-search-number-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+  
+  /* Employee search text input styles */
+  .employee-search-text-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    margin-left: 10px;
+  }
+  
+  /* Employee search button styles */
+  .employee-search-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .employee-search-button:hover {
+    background-color: #0062cc;
+  }
+  

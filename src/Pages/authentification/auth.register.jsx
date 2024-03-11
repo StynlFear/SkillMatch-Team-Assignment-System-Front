@@ -1,37 +1,25 @@
 import React, { useState } from "react";
 import SubmitButton from "../../Components/Buttons/submit.button";
-import AppButton from "../../Components/Buttons/app.button";
 import Input from "../../Components/Inputs/auth.inputs";
 import axios from "axios";
-const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
-function Register() {
+
+const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [organizationName, setOName] = useState("");
-  const [headquartersAddress, setAdress] = useState("");
-  const [darkMode, setDarkMode] = useState(false); // State variable for dark mode
-  const [imageSrc, setImageSrc] = useState("../src/assets/half_moon.svg"); // Initial image source for light mode
+  const [organizationName, setOrganizationName] = useState("");
+  const [headquartersAddress, setHeadquartersAddress] = useState("");
   const [errors, setErrors] = useState({});
 
-  const validateEmail = (email) => {
-    // Regular expression for email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  };
-  const validatePassword = (password) => {
-    // Regular expression for password validation
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    return passwordPattern.test(password);
-  };
+  const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     const errors = {};
     if (!name.trim()) errors.name = "Please enter your name";
-    if (!email.trim()|| !validateEmail(email)) errors.email = "Please enter your email";
-    if (!validatePassword(password)) errors.password = "Please enter your password";
+    if (!email.trim() || !validateEmail(email)) errors.email = "Please enter a valid email";
+    if (!validatePassword(password)) errors.password = "Password must be at least 8 characters long and contain at least one uppercase letter and one digit";
     if (!organizationName.trim()) errors.organizationName = "Please enter your organization name";
     if (!headquartersAddress.trim()) errors.headquartersAddress = "Please enter your headquarters address";
 
@@ -41,13 +29,12 @@ function Register() {
     }
 
     try {
-      const response = await axios.post(`${apiUrl}/api/signup`, {
+      const response = await axios.post(`${apiUrl}/api/v1/user/createOrganizationAdministrator`, {
         name,
         email,
         password,
         organizationName,
         headquartersAddress,
-        roles: ["admin", "user"],
       });
       console.log("Registration Successful:", response.data);
       // Handle successful registration
@@ -56,99 +43,85 @@ function Register() {
       // Handle registration error
     }
   };
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode); // Toggle dark mode state
-    if (darkMode) {
-      setImageSrc("../src/assets/half_moon.svg"); // Light mode: moon image
-    } else {
-      setImageSrc("../src/assets/sun.svg"); // Dark mode: sun image
-    }
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
-  const handleLogout = () => {
-    setEmail("");
-    setPassword("");
+
+  const validatePassword = (password) => {
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    return passwordPattern.test(password);
   };
 
   return (
-    <div className={`login-container ${darkMode ? "dark-mode" : ""}`}>
-      <div class="login-body">
-        <img
-          className="login-darkmode"
-          type="svg"
-          src={imageSrc}
-          onClick={toggleDarkMode}
-          alt="Dark Mode Toggle"
-        />
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <div>
-          <img
-            class="login-image"
-            src="../src/assets/login-photo.jfif"
-            alt="Italian Trulli"
-          />
+          <label>
+            Name:
+            <Input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          {errors.name && <div className="error-message">{errors.name}</div>}
         </div>
-        <div class="auth-form register" >
-          <h2 class="login-h2">Register</h2>
-          <p class="login-h3">Please enter your data to continue</p>
-          <form>
-            <label>
-              <Input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Name"
-              />
-               {errors.name && <div className="error-message">{errors.name}</div>}
-            </label>
-            <br />
-            
-            <label>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-              />
-               {errors.email && <div className="error-message">{errors.email}</div>}
-            </label>
-            <br />
-            <label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-              />
-                {errors.password && <div className="error-message">{errors.password}</div>} 
-            </label>
-            <br />
-            <label>
-              <Input
-                type="text"
-                value={organizationName}
-                onChange={(e) => setOName(e.target.value)}
-                placeholder="Organization Name"
-              />
-               {errors.organizationName && <div className="error-message">{errors.organizationName}</div>}
-            </label>
-            <br />
-            <label>
-              <Input
-                type="text"
-                value={headquartersAddress}
-                onChange={(e) => setAdress(e.target.value)}
-                placeholder="Organization Adress"
-              />
-               {errors.headquartersAddress && <div className="error-message">{errors.headquartersAddress}</div>}
-            </label>
-            
-            <br />
-            <SubmitButton onClick={handleRegister}>Register</SubmitButton> 
-          </form>
+
+        <div>
+          <label>
+            Email:
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+          {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
-      </div>
-     
+
+        <div>
+          <label>
+            Password:
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          {errors.password && <div className="error-message">{errors.password}</div>}
+        </div>
+
+        <div>
+          <label>
+            Organization Name:
+            <Input
+              type="text"
+              value={organizationName}
+              onChange={(e) => setOrganizationName(e.target.value)}
+            />
+          </label>
+          {errors.organizationName && <div className="error-message">{errors.organizationName}</div>}
+        </div>
+
+        <div>
+          <label>
+            Headquarters Address:
+            <Input
+              type="text"
+              value={headquartersAddress}
+              onChange={(e) => setHeadquartersAddress(e.target.value)}
+            />
+          </label>
+          {errors.headquartersAddress && <div className="error-message">{errors.headquartersAddress}</div>}
+        </div>
+
+        <SubmitButton onClick={handleRegister} type="submit">Register</SubmitButton>
+      </form>
     </div>
   );
-}
+};
 
 export default Register;
