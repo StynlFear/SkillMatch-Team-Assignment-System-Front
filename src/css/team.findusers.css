@@ -1,6 +1,7 @@
 .employee-search-container {
     width: 100%;
     max-width: 400px;
+    margin: 20px auto;
     padding: 20px;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -37,8 +38,9 @@
   }
   
   /* Employee search number input styles */
-  .employee-search-number-input {
-    width: 100%;
+  .employee-search-number-input,
+  .employee-search-text-input {
+    width: calc(50% - 5px); /* Adjust input width to fit within container */
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -49,13 +51,7 @@
   
   /* Employee search text input styles */
   .employee-search-text-input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    line-height: 1.5;
-    box-sizing: border-box;
+  
     margin-left: 10px;
   }
   

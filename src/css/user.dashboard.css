@@ -1,14 +1,18 @@
 .container {
-    align-items: flex-start;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     max-width: 500px;
     height: 200px;
     background-color: rgb(235, 232, 232);
     border-radius: 5px;
     box-shadow: 1px 1px 10px #555;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .link.dashboard {
     position: relative; /* Or any other position value */
