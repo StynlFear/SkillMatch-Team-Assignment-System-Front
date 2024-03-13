@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "concurrently \"vite\" \"cd ../../skillMatch-auth-middleware-main/ && npm start\"",
+    "start": "concurrently \"vite\" \"cd ../skillMatch-auth-middleware-main/ && npm start\"",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -20,6 +20,7 @@
     "axios": "^1.6.7",
     "boxicons": "^2.1.4",
     "gri": "^0.20.220179",
+    "jwt-decode": "^4.0.0",
     "nodemon": "^3.1.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
