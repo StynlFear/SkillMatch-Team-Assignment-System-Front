@@ -15,6 +15,9 @@ import SkillAssignment from "../Pages/Skills/user.skillassignment.jsx";
 import EmployeeSearch from "../Pages/TeamFind/team.available.jsx";
 import ViewProjectPage from "../Pages/Project/project.viewproject.jsx";
 import ProtectedRoute from "../routes/ProtectedRoute.jsx";
+import ProjectList from "../Components/projectstable/dashboard.projects.jsx";
+import UsersList from "../Components/projectstable/dashboard.users.jsx";
+import DepartmentsList from "../Components/projectstable/dashboard.departments.jsx";
 import "../css/auth.login.css";
 import "../css/auth.generatelink.css";
 import "../css/user.dashboard.css";
@@ -38,6 +41,9 @@ const App = () => {
         {/* Public routes accessible to all users */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/projectlist" element={<ProjectList />} />
+        <Route path="/userlist" element={<UsersList />} />
+        <Route path="/departmentlist" element={<DepartmentsList />} />
         <Route path="/worker/:organizationId" element={<WorkerRegister />} />
         <Route element={<ProtectedRoute  />}>
         <Route path="/dashboard/" element={<UserDashboard />} />
