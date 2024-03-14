@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "concurrently \"vite\" \"cd ../skillMatch-auth-middleware-main/ && npm start\"",
+    "start": "concurrently \"vite\" \"cd ../skillMatch-auth-middleware-main/ && npm start\" \"cd ../skillMatch-master-middleware/ && npm start\"",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

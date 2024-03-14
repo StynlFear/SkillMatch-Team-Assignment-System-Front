@@ -1,56 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-const usersData = [
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian3",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian4",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  {
-    userId: "9cdc7e10-40d0-499e-8254-0e6aecf27199",
-    name: "Marian",
-    email: "admin@marian.me",
-    password: "$2b$10$.JBO4vdL8iNEEZZYpQAQFuLygt4YtEdpDN43eWNecKh3gFjgXSwfm",
-    accountType: ["admin"]
-  },
-  // Add more user objects as needed
-];
-
-const UsersList = () => {
+const UsersList = ({ organizationName }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+  const [usersData, setUsersData] = useState([]);
   const usersPerPage = 5;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3030/v1/organization/${organizationName}`);
+        setUsersData(response.data || []); // Set usersData to an empty array in case of error
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setUsersData([]); // Set usersData to an empty array in case of error
+      }
+    };
+
+    if (organizationName) { // Fetch data only if organizationName is available
+      fetchData();
+    }
+  }, [organizationName]);
 
   const indexOfLastUser = (currentPage + 1) * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
