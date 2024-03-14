@@ -6,6 +6,9 @@ import ProjectsList from "../../Components/projectstable/dashboard.projects";
 import DepartmentsList from "../../Components/projectstable/dashboard.departments";
 import "../../css/user.dashboard.css"
 function UserDashboard() {
+  const organizationId = localStorage.getItem("organizationId");
+  const organizationName = localStorage.getItem("organizationName");
+  console.log(organizationId)
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -17,13 +20,13 @@ function UserDashboard() {
      <Sidebar/>
         <div className="input-results">{/* Render search results here */}</div>
       <div className="card">
-        <ProjectsList />
+        <ProjectsList organizationId={organizationId} />
       </div>
       <div className="card">
-        <UsersList />
+        <UsersList organizationName={organizationName} />
       </div>
       <div className="card">
-        <DepartmentsList />
+      <DepartmentsList organizationId={organizationId} />
       </div>
     </div>
   );

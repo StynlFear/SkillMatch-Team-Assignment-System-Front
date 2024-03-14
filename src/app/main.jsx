@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import LoginPage from "../Pages/authentification/auth.login.jsx";
 import Register from "../Pages/authentification/auth.register.jsx";
 import WorkerLink from "../Pages/authentification/auth.generatelink.jsx";
@@ -37,7 +37,8 @@ const App = () => {
     selectedRoles: ["Developer", "Designer"],
   };
   return (
-    <Router>
+    <BrowserRouter>
+
       <Routes>
         {/* Public routes accessible to all users */}
         <Route path="/login" element={<LoginPage />} />
@@ -45,7 +46,7 @@ const App = () => {
         <Route path="/projectlist" element={<ProjectList />} />
         <Route path="/userlist" element={<UsersList />} />
         <Route path="/decoder" element={<JwtDecoder />} />
-        <Route path="/departmentlist" element={<DepartmentsList />} />
+        <Route path="/departmentlist/:organizationId" element={<DepartmentsList />} />
         <Route path="/worker/:organizationId" element={<WorkerRegister />} />
         <Route element={<ProtectedRoute  />}>
         <Route path="/dashboard/" element={<UserDashboard />} />
@@ -64,7 +65,7 @@ const App = () => {
        
         {/* Protected routes accessible only to authenticated users */}
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 

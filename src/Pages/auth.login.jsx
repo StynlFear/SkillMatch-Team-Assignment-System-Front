@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import SubmitButton from '../Components/Buttons/submit.button';
 import AppButton from '../Components/Buttons/app.button';
 import Input from '../Components/Inputs/auth.inputs';
@@ -6,6 +7,7 @@ import axios from 'axios';
 const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
 function LoginPage() {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [darkMode, setDarkMode] = useState(false); // State variable for dark mode
   const [imageSrc, setImageSrc] = useState('../src/assets/half_moon.svg'); // Initial image source for light mode
@@ -18,9 +20,10 @@ function LoginPage() {
       });
       const token = response.data.accessToken;
       setToken(token);
-      navigate("/worker", { replace: true });
+ 
       // Handle the response from the backend
       console.log('Login Successful:', response.data);
+      navigate('/dashboard');
       // Redirect user or perform any other action based on the response
   
     } catch (error) {
