@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+
 const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
+
 function JwtDecoder() {
   const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -20,7 +22,21 @@ function JwtDecoder() {
         // Fetch user data based on userId
         axios.get(`${apiUrl}/api/v1/user/${userId}`)
           .then(response => {
-            setUserData(response.data); // Assuming response.data contains user data
+            const userData = response.data; // Assuming response.data contains user data
+            setUserData(userData);
+           
+            // Fetch organization ID based on organization name
+            const organizationName = userData.data.organizationName;
+            localStorage.setItem('organizationName', organizationName);
+            axios.get(`http://localhost:3030/v1/organization/v/${organizationName}`)
+              .then(orgResponse => {
+                const organizationId = orgResponse.data.organizationId;
+                // Store organization ID in local storage
+                localStorage.setItem('organizationId', organizationId);
+              })
+              .catch(orgError => {
+                console.error('Error fetching organization data:', orgError);
+              });
           })
           .catch(error => {
             console.error('Error fetching user data:', error);
