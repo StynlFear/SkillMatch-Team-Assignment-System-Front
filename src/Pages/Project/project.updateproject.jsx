@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function UpdateProjectPage() {
+  const { projectId } = useParams();
   // State variables to store the form input values
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -13,28 +17,33 @@ function UpdateProjectPage() {
   const [techStack, setTechStack] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
 
+  // Fetch project data on component mount
+
+
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Log the form input values
-    console.log("Project Title:", title);
-    console.log("Project Description:", description);
-    console.log("Project Period:", period);
-    console.log("Start Date:", startDate);
-    console.log("Deadline Date:", deadlineDate);
-    console.log("Project Status:", status);
-    console.log("Technology Stack:", techStack);
-    console.log("Selected Roles:", selectedRoles);
+    // Prepare the data to be sent
+    const projectData = {
+      projectName: title,
+      projectDescription: description,
+      projectPeriod: period,
+      projectStartDate: startDate,
+      projectDeadline: deadlineDate,
+      projectStatus: status,
+      technologyStack: techStack.split('\n').map(item => item.trim()).filter(item => item !== ''),
+      organizationId: localStorage.getItem("organizationId"),
+    };
 
-    // Reset the form after submission
-    setTitle("");
-    setDescription("");
-    setPeriod("fixed");
-    setStartDate("");
-    setDeadlineDate("");
-    setStatus("not_started");
-    setTechStack("");
-    setSelectedRoles([]);
+    // Send the updated project data using Axios PUT request
+    axios.put(`${apiUrl}/v1/project/${projectId}`, projectData)
+      .then(response => {
+        console.log("Project updated successfully:", response.data);
+        // Optionally handle the response or perform any necessary actions
+      })
+      .catch(error => {
+        console.error('Error updating project:', error);
+      });
   };
 
   // Function to handle role selection
@@ -46,9 +55,10 @@ function UpdateProjectPage() {
     );
   };
 
+
   return (
     <div>
-      <h2>Create Project</h2>
+      <h2>Update Project</h2>
       <form onSubmit={handleSubmit} className="form-container">
         <div>
           <label htmlFor="title">Title:</label>
@@ -122,9 +132,9 @@ function UpdateProjectPage() {
           >
             <option value="not_started">Not Started</option>
             <option value="starting">Starting</option>
-            <option value="starting">In Progress</option>
-            <option value="starting">Closing</option>
-            <option value="starting">Closed</option>
+            <option value="in_progress">In Progress</option>
+            <option value="closing">Closing</option>
+            <option value="closed">Closed</option>
           </select>
         </div>
         <div>

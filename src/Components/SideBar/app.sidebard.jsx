@@ -37,7 +37,7 @@ function Sidebar({ toggleSidebar }) {
             <li className="list">
               <a href="#" className="nav-link">
                 <i className="bx bx-bar-chart-alt-2 icon"></i>
-                <span className="link">Projects</span>
+                <span className="link"><a href="/createproject">Projects</a></span>
               </a>
             </li>
             <li className="list">
@@ -49,7 +49,7 @@ function Sidebar({ toggleSidebar }) {
             <li className="list">
               <a href="#" className="nav-link">
                 <i className="bx bx-message-rounded icon"></i>
-                <span className="link">Messages</span>
+                <span className="link">Departments</span>
               </a>
             </li>
           </ul>

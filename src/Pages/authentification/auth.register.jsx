@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import SubmitButton from "../../Components/Buttons/submit.button";
 import Input from "../../Components/Inputs/auth.inputs";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +12,7 @@ const Register = () => {
   const [headquartersAddress, setHeadquartersAddress] = useState("");
   const [errors, setErrors] = useState({});
 
-  const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
+  const apiUrl = import.meta.env.VITE_APP_USER_IP;
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ const Register = () => {
         headquartersAddress,
       });
       console.log("Registration Successful:", response.data);
+      navigate('/login');
       // Handle successful registration
     } catch (error) {
       console.error("Registration Failed:", error);
