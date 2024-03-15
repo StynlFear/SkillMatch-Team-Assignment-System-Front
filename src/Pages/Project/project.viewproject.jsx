@@ -1,7 +1,7 @@
 import React from "react";
 import EmployeeSearch from "../TeamFind/team.available";
 import "../../css/project.viewproject.css"
-function ViewProjectPage({ project }) {
+function ViewProjectPage() {
   return (
     <div className="employee-search">
         <div  className="view-project-container">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
-
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const DepartmentsList = ({ organizationId }) => {
   const [departmentsData, setDepartmentsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,7 +11,7 @@ const DepartmentsList = ({ organizationId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3030/v1/organization/o/${organizationId}`);
+        const response = await axios.get(`${apiUrl}/v1/organization/o/${organizationId}`);
         setDepartmentsData(response.data || []); // Set departmentsData to an empty array in case of error
       } catch (error) {
         console.error('Error fetching departments:', error);
@@ -40,6 +40,16 @@ const DepartmentsList = ({ organizationId }) => {
     setCurrentPage(0); // Reset pagination to first page when searching
   };
 
+  const handleEdit = (departmentId) => {
+    // Implement edit functionality
+    console.log("Edit department:", departmentId);
+  };
+
+  const handleDelete = (departmentId) => {
+    // Implement delete functionality
+    console.log("Delete department:", departmentId);
+  };
+
   return (
     <div className='pagination'>
       <input
@@ -54,12 +64,26 @@ const DepartmentsList = ({ organizationId }) => {
             <thead>
               <tr>
                 <th>Department Name</th>
+                <th>Actions</th> {/* Add Actions column */}
               </tr>
             </thead>
             <tbody>
               {currentDepartments.map(department => (
                 <tr key={department.departmentId}>
                   <td>{department.departmentName}</td>
+                  <td>
+                    <select onChange={(e) => {
+                      if (e.target.value === 'edit') {
+                        handleEdit(department.departmentId);
+                      } else if (e.target.value === 'delete') {
+                        handleDelete(department.departmentId);
+                      }
+                    }}>
+                      <option value="">Actions</option>
+                      <option value="edit">Edit</option>
+                      <option value="delete">Delete</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>

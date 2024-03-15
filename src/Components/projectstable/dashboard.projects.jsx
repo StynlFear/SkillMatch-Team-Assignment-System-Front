@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const ProjectsList = ({ organizationId }) => {
-  console.log(organizationId);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [projectsData, setProjectsData] = useState([]);
   const projectsPerPage = 5;
-
+  const navigate= useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3030/v1/organization/p/${organizationId}`
+          `${apiUrl}/v1/organization/p/${organizationId}`
         );
         setProjectsData(response.data || []); // Set projectsData to an empty array in case of error
       } catch (error) {
@@ -65,6 +65,25 @@ const ProjectsList = ({ organizationId }) => {
     setCurrentPage(0); // Reset pagination to first page when searching
   };
 
+  const handleEdit = (projectId) => {
+    // Implement edit functionality
+    navigate(`/editproject/${projectId}`); 
+  };
+  const handleDelete = async (projectId) => {
+    try {
+      // Make DELETE request to delete the project
+      const response = await axios.delete(`${apiUrl}/v1/project/${projectId}`);
+  
+      // Log success message
+      console.log("Project deleted successfully:", response.data);
+      window.location.reload();
+      // Optionally, update the state or perform any other actions after deletion
+    } catch (error) {
+      // Log error message if deletion fails
+      console.error("Error deleting project:", error);
+    }
+  };
+
   return (
     <div className="pagination">
       <input
@@ -84,6 +103,7 @@ const ProjectsList = ({ organizationId }) => {
             <th>Status</th>
             <th>Technology Stack</th>
             <th>Selected Roles</th>
+            <th>Actions</th> {/* Add Actions column */}
           </tr>
         </thead>
         <tbody>
@@ -101,6 +121,21 @@ const ProjectsList = ({ organizationId }) => {
                   : "-"}
               </td>
               {/* Render other project details here */}
+              <td>
+                <select
+                  onChange={(e) => {
+                    if (e.target.value === "edit") {
+                      handleEdit(project.projectId);
+                    } else if (e.target.value === "delete") {
+                      handleDelete(project.projectId);
+                    }
+                  }}
+                >
+                  <option value="">Actions</option>
+                  <option value="edit">Edit</option>
+                  <option value="delete">Delete</option>
+                </select>
+              </td>
             </tr>
           ))}
         </tbody>

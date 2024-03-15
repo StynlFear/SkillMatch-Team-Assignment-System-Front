@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
-
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 function CreateProjectPage() {
   // State variables to store the form input values
   const [title, setTitle] = useState("");
@@ -12,6 +14,7 @@ function CreateProjectPage() {
   const [status, setStatus] = useState("not_started");
   const [techStack, setTechStack] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
+  const [organizationId, setOrganizationId] = useState(""); // State for organization ID
 
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -25,16 +28,40 @@ function CreateProjectPage() {
     console.log("Project Status:", status);
     console.log("Technology Stack:", techStack);
     console.log("Selected Roles:", selectedRoles);
-
-    // Reset the form after submission
-    setTitle("");
-    setDescription("");
-    setPeriod("fixed");
-    setStartDate("");
-    setDeadlineDate("");
-    setStatus("not_started");
-    setTechStack("");
-    setSelectedRoles([]);
+  
+    // Format the dates
+    const formattedStartDate = new Date(startDate).toLocaleDateString('en-GB');
+    const formattedDeadlineDate = new Date(deadlineDate).toLocaleDateString('en-GB');
+  
+    // Prepare the data to be sent
+    const formData = {
+      projectName: title,
+      projectDescription: description,
+      projectPeriod: period,
+      projectStartDate: formattedStartDate,
+      projectDeadline: formattedDeadlineDate,
+      projectStatus: status,
+      technologyStack: techStack.split('\n').map(item => item.trim()).filter(item => item !== ''), // Split the techStack string by newline and trim each item
+      organizationId: localStorage.getItem("organizationId"), // Get organizationId from localStorage
+    };
+  
+    // Send the data using Axios POST request
+    axios.post('${apiURl}/v1/project/', formData)
+      .then(response => {
+        console.log("Project created successfully:", response.data);
+        // Reset the form after successful submission
+        setTitle("");
+        setDescription("");
+        setPeriod("fixed");
+        setStartDate("");
+        setDeadlineDate("");
+        setStatus("not_started");
+        setTechStack("");
+        setSelectedRoles([]);
+      })
+      .catch(error => {
+        console.error('Error creating project:', error);
+      });
   };
 
   // Function to handle role selection
@@ -45,6 +72,12 @@ function CreateProjectPage() {
         : [...prevRoles, role]
     );
   };
+
+  // Function to get organization ID from local storage
+  useEffect(() => {
+    const organizationId = localStorage.getItem("organizationId");
+    setOrganizationId(organizationId);
+  }, []);
 
   return (
     <div>
