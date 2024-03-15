@@ -58,7 +58,8 @@ const App = () => {
         <Route path="/createskill/" element={<SkillForm />} />
         <Route path="/updateskill/q/:skillid" element={<SkillUpdateForm />} />
         <Route path="/skillassignment/:userId" element={<SkillAssignment />} />
-        <Route path="/teamassignment" element={<EmployeeSearch />} />
+        <Route path="/teamassignment" element={<EmployeeSearch />} />        
+        
         <Route
           path="/viewproject"
           element={<ViewProjectPage project={project} />}
