@@ -19,12 +19,14 @@ import ProjectList from "../Components/projectstable/dashboard.projects.jsx";
 import UsersList from "../Components/projectstable/dashboard.users.jsx";
 import DepartmentsList from "../Components/projectstable/dashboard.departments.jsx";
 import UpdateProjectPage from "../Pages/Project/project.updateproject.jsx";
+import CreateDepartmentPage from "../Pages/department/department.create.jsx";
 import JwtDecoder from "../utils/jwt-decoder.jsx";
 import "../css/auth.login.css";
 import "../css/auth.generatelink.css";
 import "../css/user.dashboard.css";
 import "boxicons/css/boxicons.min.css";
 import ParentComponent from "../Components/SideBar/app.sidebar.parent.jsx";
+import EditDepartmentPage from "../Pages/department/department.edit.jsx";
 
 const App = () => {
   const project = {
@@ -52,7 +54,10 @@ const App = () => {
         <Route element={<ProtectedRoute  />}>
         <Route path="/dashboard/" element={<UserDashboard />} />
         <Route path="/generatelink" element={<WorkerLink />} />
+        <Route path="/createdepartment" element={<CreateDepartmentPage />} />
+        <Route path="/editdepartment/:departmentId" element={<EditDepartmentPage />} />
         <Route path="/createproject/" element={<CreateProjectPage />} />
+
         <Route path="/editproject/:projectId" element={<UpdateProjectPage />} />
         <Route path="/updateuser/q/:userid" element={<UpdateUserPage />} />
         <Route path="/createskill/" element={<SkillForm />} />

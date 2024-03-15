@@ -46,7 +46,7 @@ function CreateProjectPage() {
     };
   
     // Send the data using Axios POST request
-    axios.post('${apiURl}/v1/project/', formData)
+    axios.post(`${apiUrl}/v1/project/`, formData)
       .then(response => {
         console.log("Project created successfully:", response.data);
         // Reset the form after successful submission
