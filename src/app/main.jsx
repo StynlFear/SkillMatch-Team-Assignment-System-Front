@@ -18,6 +18,7 @@ import ProtectedRoute from "../routes/ProtectedRoute.jsx";
 import ProjectList from "../Components/projectstable/dashboard.projects.jsx";
 import UsersList from "../Components/projectstable/dashboard.users.jsx";
 import DepartmentsList from "../Components/projectstable/dashboard.departments.jsx";
+import UpdateProjectPage from "../Pages/Project/project.updateproject.jsx";
 import JwtDecoder from "../utils/jwt-decoder.jsx";
 import "../css/auth.login.css";
 import "../css/auth.generatelink.css";
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/dashboard/" element={<UserDashboard />} />
         <Route path="/generatelink" element={<WorkerLink />} />
         <Route path="/createproject/" element={<CreateProjectPage />} />
+        <Route path="/editproject/:projectId" element={<UpdateProjectPage />} />
         <Route path="/updateuser/q/:userid" element={<UpdateUserPage />} />
         <Route path="/createskill/" element={<SkillForm />} />
         <Route path="/updateskill/q/:skillid" element={<SkillUpdateForm />} />

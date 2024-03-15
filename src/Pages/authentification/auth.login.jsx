@@ -4,10 +4,12 @@ import AppButton from '../../Components/Buttons/app.button';
 import Input from '../../Components/Inputs/auth.inputs';
 import axios from 'axios';
 import { setToken } from '../../routes/auth';
-const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
+import { useNavigate } from 'react-router-dom';
+const apiUrl = import.meta.env.VITE_APP_USER_IP;
 
 function LoginPage() {
   const [email, setEmail] = useState('');
+  const navigate= useNavigate();
   const [password, setPassword] = useState('');
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState('../src/assets/half_moon.svg');
@@ -24,6 +26,7 @@ function LoginPage() {
       const { accessToken, refreshToken } = response.data;
     setToken(accessToken, refreshToken); // Store tokens in local storage
       console.log('Login Successful:', response.data);
+      navigate('/generatelink')
       // Redirect user or perform any other action based on the response
     } catch (error) {
       // Handle errors

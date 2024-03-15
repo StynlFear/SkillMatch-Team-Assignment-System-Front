@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import "../../css/user.updateuser.css"
-const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
+const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
 function UpdateUserPage() {
   // State variables to store user information
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +18,7 @@ function UpdateUserPage() {
     // Function to fetch user data from the API
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/v1/user/${userid}`);
+        const response = await axios.get(`${apiuserUrl}/api/v1/user/${userid}`);
         const userData = response.data.data; // Access data property to get user information
         // Update state with user information
         setUsername(userData.name);
@@ -35,7 +37,7 @@ function UpdateUserPage() {
     e.preventDefault();
     // Here you can handle form submission, such as sending data to a server or updating state
     try {
-      const response = await axios.put(`${apiUrl}/api/v1/user/${userid}`, {
+      const response = await axios.put(`${apiuserUrl}/api/v1/user/${userid}`, {
         name: username,
         email: email,
         password: password // Include password in the request body
@@ -48,6 +50,7 @@ function UpdateUserPage() {
     setUsername('');
     setEmail('');
     setPassword('');
+    navigate('/dashboard')
   };
 
   return (
