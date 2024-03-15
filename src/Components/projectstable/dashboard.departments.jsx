@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const DepartmentsList = ({ organizationId }) => {
   const [departmentsData, setDepartmentsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const departmentsPerPage = 5;
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,12 +43,22 @@ const DepartmentsList = ({ organizationId }) => {
 
   const handleEdit = (departmentId) => {
     // Implement edit functionality
-    console.log("Edit department:", departmentId);
+    navigate(`/editdepartment/${departmentId}`); 
   };
 
-  const handleDelete = (departmentId) => {
-    // Implement delete functionality
-    console.log("Delete department:", departmentId);
+  const handleDelete = async (departmentId) => {
+    try {
+      // Make DELETE request to delete the project
+      const response = await axios.delete(`${apiUrl}/v1/department/${departmentId}`);
+  
+      // Log success message
+      console.log("Project Department successfully:", response.data);
+      window.location.reload();
+      // Optionally, update the state or perform any other actions after deletion
+    } catch (error) {
+      // Log error message if deletion fails
+      console.error("Error deleting Department:", error);
+    }
   };
 
   return (
