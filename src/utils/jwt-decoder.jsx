@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
-const apiUrl = import.meta.env.VITE_APP_LOCAL_IP;
-
+const apiUrl = import.meta.env.VITE_APP_USER_IP;
+const apiUrl1 = import.meta.env.VITE_APP_USER_IP;
 function JwtDecoder() {
   const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Retrieve JWT token from local storage
@@ -22,17 +24,19 @@ function JwtDecoder() {
         // Fetch user data based on userId
         axios.get(`${apiUrl}/api/v1/user/${userId}`)
           .then(response => {
-            const userData = response.data; // Assuming response.data contains user data
+            const userData = response.data; 
             setUserData(userData);
            
             // Fetch organization ID based on organization name
             const organizationName = userData.data.organizationName;
             localStorage.setItem('organizationName', organizationName);
-            axios.get(`http://localhost:3030/v1/organization/v/${organizationName}`)
+            axios.get(`https://starfish-app-wpdsi.ondigitalocean.app/v1/organization/v/${organizationName}`)
               .then(orgResponse => {
                 const organizationId = orgResponse.data.organizationId;
+                console.log(organizationId);
                 // Store organization ID in local storage
                 localStorage.setItem('organizationId', organizationId);
+                navigate('/dashboard');
               })
               .catch(orgError => {
                 console.error('Error fetching organization data:', orgError);
@@ -49,20 +53,6 @@ function JwtDecoder() {
 
   return (
     <div>
-      <h1>Welcome to Your App</h1>
-      {userId ? (
-        <div>
-          <p>User ID: {userId}</p>
-          {userData && (
-            <div>
-              <p>User Data:</p>
-              <p>Organization Name: {userData.data.organizationName}</p>
-            </div>
-          )}
-        </div>
-      ) : (
-        <p>Please log in to view your user ID</p>
-      )}
     </div>
   );
 }

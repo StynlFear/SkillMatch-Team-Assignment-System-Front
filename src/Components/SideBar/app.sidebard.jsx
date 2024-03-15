@@ -29,31 +29,37 @@ function Sidebar({ toggleSidebar }) {
         <div className="sidebar-content">
           <ul className="lists">
             <li className="list">
-              <a href="#" className="nav-link">
+              <a href="/dashboard" className="nav-link">
                 <i className="bx bx-home-alt icon"></i>
                 <span className="link">Dashboard</span>
               </a>
             </li>
             <li className="list">
-              <a href="#" className="nav-link">
+              <a href="/createproject" className="nav-link">
                 <i className="bx bx-bar-chart-alt-2 icon"></i>
-                <span className="link"><a href="/createproject">Projects</a></span>
+                <span className="link">Projects</span>
               </a>
             </li>
             <li className="list">
-              <a href="#" className="nav-link">
+              <a href="/generatelink" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Users</span>
               </a>
             </li>
+            
             <li className="list">
-              <a href="#" className="nav-link">
+              <a href="/createdepartment" className="nav-link">
                 <i className="bx bx-message-rounded icon"></i>
                 <span className="link">Departments</span>
               </a>
             </li>
-          </ul>
-
+          <li className="list">
+              <a href="/logout" className="nav-link">
+                <i className="bx bx-bell icon"></i>
+                <span className="link">Logout</span>
+              </a>
+            </li>
+            </ul>
           <div className="bottom-content">
             <li className="list">
               <a href="#" className="nav-link">
