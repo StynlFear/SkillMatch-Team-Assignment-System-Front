@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../css/project.createproject.css";
+import Sidebar from "../../Components/SideBar/app.sidebard";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function CreateDepartmentPage() {
@@ -34,7 +35,7 @@ function CreateDepartmentPage() {
 
   return (
     <div>
-      <h2>Create Department</h2>
+      <Sidebar/>
       <form onSubmit={handleSubmit} className="form-container">
         <div>
           <label htmlFor="departmentName">Department Name:</label>

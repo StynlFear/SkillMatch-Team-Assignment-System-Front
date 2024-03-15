@@ -53,7 +53,7 @@ const UsersList = ({ organizationName }) => {
   const handleDelete = async (userId) => {
     try {
       // Make DELETE request to delete the project
-      const response = await axios.delete(`${apiuserUrl}/api/v1/user/delete/${userId}`);
+      const response = await axios.delete(`${apiuserUrl}/api/v1/user/${userId}`);
   
       // Log success message
       console.log("User deleted successfully:", response.data);

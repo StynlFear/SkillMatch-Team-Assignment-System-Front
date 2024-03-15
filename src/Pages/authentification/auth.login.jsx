@@ -26,7 +26,7 @@ function LoginPage() {
       const { accessToken, refreshToken } = response.data;
     setToken(accessToken, refreshToken); // Store tokens in local storage
       console.log('Login Successful:', response.data);
-      navigate('/generatelink')
+      navigate('/decoder')
       // Redirect user or perform any other action based on the response
     } catch (error) {
       // Handle errors

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
+import Sidebar from "../../Components/SideBar/app.sidebard";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 function CreateProjectPage() {
   // State variables to store the form input values
@@ -81,7 +82,7 @@ function CreateProjectPage() {
 
   return (
     <div>
-      <h2>Create Project</h2>
+      <Sidebar/>
       <form onSubmit={handleSubmit} className="form-container">
         <div>
           <label htmlFor="title">Title:</label>
@@ -157,9 +158,11 @@ function CreateProjectPage() {
             <option value="starting">Starting</option>
           </select>
         </div>
-        <div>
+        {/*
+       <div>
           <RoleSelectionPage selectedRoles={selectedRoles} onSelectRole={handleSelectRole} />
         </div>
+        */}
         <button type="submit">Create Project</button>
       </form>
     </div>
