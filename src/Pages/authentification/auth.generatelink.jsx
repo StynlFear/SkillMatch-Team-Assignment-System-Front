@@ -92,7 +92,7 @@ function GenerateLinkPage() {
     // Prepare data for email template
     const templateParams = {
       to_name: email,
-      from_name: 'Your Organization',
+      from_name: 'SkillMatch Service',
       message: `Please click the following link to complete your registration: ${randomLink}`
     };
   

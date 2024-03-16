@@ -2,38 +2,32 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import "../../css/skill.createskill.css";
-
+import { useNavigate } from 'react-router-dom';
 function SkillUpdateForm() {
   const { skillId } = useParams();
-
+  const navigate = useNavigate();
   // State variables to store skill information
   const [skill, setSkill] = useState({
-    category: '',
-    name: '',
-    description: '',
-    author: '',
-    departments: [],
+    skillName: '',
+    skillAuthor: '',
+    skillCategory: '',
   });
 
-  // State variable to store skill categories
-  const [skillCategories, setSkillCategories] = useState(['Programming Language', 'Libraries', 'Frameworks', 'Software Engineering']);
-
-  // State variable to store new skill category
-  const [newCategory, setNewCategory] = useState('');
+  // Skill categories
+  const skillCategories = ['Programming Language', 'Libraries', 'Frameworks', 'Software Engineering'];
 
   useEffect(() => {
     // Function to fetch skill data from the API
     const fetchSkillData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/v1/user/${skillId}`);
+        const response = await axios.get(`https://starfish-app-wpdsi.ondigitalocean.app/v1/skill/${skillId}`);
         const skillData = response.data; // Assuming response.data contains skill information
         // Update state with skill information
         setSkill({
-          category: skillData.category,
-          name: skillData.name,
-          description: skillData.description,
-          author: skillData.author,
-          departments: skillData.departments,
+          ...skill,
+          skillCategory: skillData.skillCategory,
+          skillName: skillData.skillName,
+          skillAuthor: skillData.skillAuthor,
         });
       } catch (error) {
         console.error('Error fetching skill data:', error);
@@ -46,49 +40,60 @@ function SkillUpdateForm() {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if the skillName is empty
+    if (skill.skillName.trim() === '') {
+      console.log('Skill name cannot be blank.');
+      return; // Prevent form submission if skill name is empty
+    }
     try {
-      const response = await axios.put(`${apiUrl}/api/v1/user/${skillId}`, skill);
+      const response = await axios.put(`https://starfish-app-wpdsi.ondigitalocean.app/v1/skill/${skillId}`, skill);
+      console.log('Response:', response); // Add this line
+      navigate('/dashboard'); // Redirect to skills dashboard
       // Handle response accordingly
     } catch (error) {
       console.error('Error updating skill:', error);
     }
   };
 
-  // Function to handle input changes for skill category
-  const handleCategoryChange = (e) => {
-    setSkill({
-      ...skill,
-      category: e.target.value,
-    });
-  };
-
   // Function to handle input changes for other fields
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSkill({
-      ...skill,
-      [name]: value,
-    });
-  };
-
-  // Function to handle adding a new skill category
-  const handleAddCategory = () => {
-    if (newCategory.trim() !== '') {
-      setSkillCategories([...skillCategories, newCategory.trim()]);
-      setNewCategory('');
+    // Check if the name is skillName
+    if (name === 'skillName') {
+      // Allow deletion only if value is not empty
+      if (value.trim() === '') {
+        // If the value is empty, set skillName to an empty string
+        setSkill({
+          ...skill,
+          [name]: '',
+        });
+      } else {
+        // If the value is not empty, update the state
+        setSkill({
+          ...skill,
+          [name]: value,
+        });
+      }
+    } else {
+      // For other fields, update the state
+      setSkill({
+        ...skill,
+        [name]: value,
+      });
     }
   };
+  
 
   return (
     <div>
       <form onSubmit={handleSubmit} className='skill-form-container'>
         <div>
-          <label htmlFor="category">Skill Category:</label>
+          <label htmlFor="skillCategory">Skill Category:</label>
           <select
-            id="category"
-            name="category"
-            value={skill.category}
-            onChange={handleCategoryChange}
+            id="skillCategory"
+            name="skillCategory"
+            value={skill.skillCategory}
+            onChange={handleChange}
             required
           >
             <option value="">Select Category</option>
@@ -97,50 +102,28 @@ function SkillUpdateForm() {
             ))}
           </select>
         </div>
-        <div className="input-container">
-          <label htmlFor="newCategory">Add New Category:</label>
-          <input
-            type="text"
-            id="newCategory"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            className="new-category-input"
-          />
-          <button type="button" onClick={handleAddCategory} className="add-button">Add</button>
-        </div>
         <div>
-          <label htmlFor="name">Skill Name:</label>
+          <label htmlFor="skillName">Skill Name:</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={skill.name}
+            id="skillName"
+            name="skillName"
+            value={skill.skillName}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={skill.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="author">Author:</label>
+          <label htmlFor="skillAuthor">Skill Author:</label>
           <input
             type="text"
-            id="author"
-            name="author"
-            value={skill.author}
+            id="skillAuthor"
+            name="skillAuthor"
+            value={skill.skillAuthor}
             onChange={handleChange}
             required
           />
         </div>
-        {/* Input field for adding new skill category */}
         <button type="submit">Update Skill</button>
       </form>
     </div>
