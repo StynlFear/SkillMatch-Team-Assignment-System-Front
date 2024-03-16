@@ -1,52 +1,50 @@
 .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-  
-  .pagination li {
-    display: inline-block;
-    margin: 0 5px;
-  }
-  
-  .pagination a {
-    display: block;
-    padding: 5px 10px;
-    background-color: #f2f2f2;
-    color: #333;
-    text-decoration: none;
-    border-radius: 3px;
-  }
-  
-  .pagination a:hover,
-  .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .projects-list h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .projects-list h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .projects-list p {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-  
+  display: flex;
+  justify-content: center; /* Center pagination horizontally */
+  align-items: center; /* Center pagination vertically */
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.pagination a {
+  padding: 5px 10px;
+  background-color: #f2f2f2;
+  color: #333;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.pagination a:hover,
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align items in the center */
+}
+
+.projects-list h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.projects-list h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.projects-list p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
