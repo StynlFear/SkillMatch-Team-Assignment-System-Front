@@ -30,6 +30,8 @@ import EditDepartmentPage from "../Pages/department/department.edit.jsx";
 import LogoutPage from "../Pages/authentification/logoutpage.jsx";
 import AvailableWorkersPage from "../Pages/TeamFind/team.assignwtop.jsx";
 import ProjectManagement from "../Pages/Project/project.allprojects.jsx";
+import UpdateUserAccounttype from "../Pages/User/user.type.jsx";
+import CustomRoleForm from "../Pages/customroles.jsx/customrole.create.jsx";
 
 const App = () => {
   const project = {
@@ -63,11 +65,13 @@ const App = () => {
         <Route path="/logout/" element={<LogoutPage />} />
         <Route path="/editproject/:projectId" element={<UpdateProjectPage />} />
         <Route path="/updateuser/q/:userid" element={<UpdateUserPage />} />
-        <Route path="/createskill/" element={<SkillForm />} />
-        <Route path="/updateskill/q/:skillid" element={<SkillUpdateForm />} />
+        <Route path="/createskill/:departmentId" element={<SkillForm />} />
+        <Route path="/createrole/:departmentId" element={<CustomRoleForm />} />
+        <Route path="/updateskill/:skillId" element={<SkillUpdateForm />} />
         <Route path="/skillassignment/:userId" element={<SkillAssignment />} />
         <Route path="/teamassignment" element={<AvailableWorkersPage />} /> 
-        <Route path="/allprojects" element={<ProjectManagement />} />    
+        <Route path="/allprojects" element={<ProjectManagement />} /> 
+        <Route path="/edittype/:userId" element={<UpdateUserAccounttype />} />
         <Route
           path="/viewproject/:projectId"
           element={<ViewProjectPage project={project} />}

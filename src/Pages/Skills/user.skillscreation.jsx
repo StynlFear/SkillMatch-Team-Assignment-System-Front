@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../../css/skill.createskill.css";
 
 const SkillForm = () => {
+  const { departmentId } = useParams(); // Extract departmentId from URL params
+
   const initialSkillState = {
-    category: '',
-    name: '',
-    description: '',
-    author: '',
-    departments: [],
+    departmentId: departmentId,
+    skillName: 'Skill Name',
+    skillAuthor: 'Author Name',
+    skillCategory: 'Category Name',
   };
 
   const [newSkill, setNewSkill] = useState(initialSkillState);
@@ -24,7 +26,7 @@ const SkillForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/skills', newSkill);
+      const response = await axios.post('https://starfish-app-wpdsi.ondigitalocean.app/v1/skill/create', newSkill);
       console.log('Skill created:', response.data);
       setNewSkill(initialSkillState);
     } catch (error) {
@@ -36,14 +38,13 @@ const SkillForm = () => {
 
   return (
     <div>
-      <h2>Create a New Skill</h2>
       <form onSubmit={handleSubmit} className='skill-form-container'>
         <div>
           <label htmlFor="category">Skill Category:</label>
           <select
             id="category"
-            name="category"
-            value={newSkill.category}
+            name="skillCategory"
+            value={newSkill.skillCategory}
             onChange={handleChange}
             required
           >
@@ -58,18 +59,8 @@ const SkillForm = () => {
           <input
             type="text"
             id="name"
-            name="name"
-            value={newSkill.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={newSkill.description}
+            name="skillName"
+            value={newSkill.skillName}
             onChange={handleChange}
             required
           />
@@ -79,8 +70,8 @@ const SkillForm = () => {
           <input
             type="text"
             id="author"
-            name="author"
-            value={newSkill.author}
+            name="skillAuthor"
+            value={newSkill.skillAuthor}
             onChange={handleChange}
             required
           />
