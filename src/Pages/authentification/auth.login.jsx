@@ -54,7 +54,7 @@ function LoginPage() {
       <div className={`login-container ${darkMode ? 'dark-mode' : ''}`}>
         <div className="login-body">
           <img className="login-darkmode" type="svg" src={imageSrc} onClick={toggleDarkMode} alt="Dark Mode Toggle" />
-          <div><img className="login-image" src="../src/assets/login-photo.jfif" alt="Italian Trulli" /></div>
+          <div></div>
           <div className="auth-form login">
             <h2 className="login-h2">Login</h2>
             <p className="login-h3">Please enter your login data to continue</p>
