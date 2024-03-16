@@ -1,42 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import EmployeeSearch from './team.assignwtop.jsx';
+
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const AvailableWorkersPage = () => {
   const [availableWorkers, setAvailableWorkers] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const orgName = localStorage.getItem("organizationName");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (orgName) {
+          const response = await axios.get(`${apiUrl}/v1/organization/${orgName}`);
+          setAvailableWorkers(response.data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setAvailableWorkers([]); // Set availableWorkers to an empty array in case of error
+      }
+    };
 
-  // Function to handle adding available worker to the Team model
+    fetchData(); // Call fetchData directly within useEffect
+
+    const fetchProjects = async () => {
+      try {
+        const organizationId = localStorage.getItem("organizationId");
+        const response = await axios.get(`${apiUrl}/v1/organization/p/${organizationId}`);
+        setProjects(response.data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, [orgName]); // Run useEffect whenever orgName changes
+
   const addWorkerToTeam = (worker) => {
-    // Create a new Team instance based on the worker data
-    const newTeamMember = new Team({
-      teamId: worker.userId, // Assuming userId can be used as teamId
-      assignmentStatus: true, // Default assignment status
-      workHours: '40', // Default work hours
-      teamComments: '', // Default team comments
-      customTeamRolesId: '', // Set custom team roles ID
-      projectId: '', // Set project ID
-      userId: worker.userId, // Set user ID
-    });
-
-    // Save the new team member to the database
-    newTeamMember.save()
-      .then(() => {
-        console.log('Worker added to team successfully');
-        // Optionally, you can fetch available workers again to update the list
-      })
-      .catch(error => {
-        console.error('Error adding worker to team:', error);
-      });
+    // Your addWorkerToTeam function implementation
   };
+
+  // Filter available workers based on search query
+  const filteredWorkers = availableWorkers.filter(worker =>
+    worker.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    worker.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
       <h2>Available Workers</h2>
-      <EmployeeSearch />
+      {/* Dropdown to select project */}
+      <select value={selectedProject} onChange={(e) => setSelectedProject(e.target.value)}>
+        <option value="">Select Project</option>
+        {projects.map(project => (
+          <option key={project.projectId} value={project.projectId}>{project.projectName}</option>
+        ))}
+      </select>
+      {/* Search input field */}
+      <input 
+        type="text" 
+        placeholder="Search workers..." 
+        value={searchQuery} 
+        onChange={(e) => setSearchQuery(e.target.value)} 
+      />
       {/* Display available workers */}
       <ul>
-        {availableWorkers.map(worker => (
+        {filteredWorkers.map(worker => (
           <li key={worker.userId}>
             {worker.name} - {worker.email}
             <button onClick={() => addWorkerToTeam(worker)}>Add to Team</button>
