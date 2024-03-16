@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "web":"vite build && vite preview",
+    "web": "vite build && vite preview",
     "start": "concurrently \"vite\" \"cd ../skillMatch-auth-middleware-main/ && npm start\" \"cd ../skillMatch-master-middleware/ && npm start\"",
     "build": "vite build --base=./",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.12",
@@ -20,6 +21,7 @@
     "@mui/x-data-grid": "^6.19.6",
     "axios": "^1.6.7",
     "boxicons": "^2.1.4",
+    "emailjs": "^4.0.3",
     "gri": "^0.20.220179",
     "jwt-decode": "^4.0.0",
     "nodemon": "^3.1.0",

@@ -1,89 +1,70 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import SubmitButton from "../../Components/Buttons/submit.button";
-import AppButton from "../../Components/Buttons/app.button";
-import Input from "../../Components/Inputs/auth.inputs";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Input from "../../Components/Inputs/auth.inputs";
+import SubmitButton from "../../Components/Buttons/submit.button";
+
 const apiUrl = import.meta.env.VITE_APP_USER_IP;
+
 function WorkerRegister() {
-  const { organizationId } = useParams(); // Extract organizationId from URL
-  const navigate= useNavigate();
+  const organizationId= localStorage.getItem("organizationId");
+  console.log(organizationId)
+ const  url = useParams();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [darkMode, setDarkMode] = useState(false); // State variable for dark mode
-  const [imageSrc, setImageSrc] = useState("../src/assets/half_moon.svg"); // Initial image source for light mode
   const [errors, setErrors] = useState({});
 
   const validateEmail = (email) => {
-    // Regular expression for email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
+
   const validatePassword = (password) => {
-    // Regular expression for password validation
     const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     return passwordPattern.test(password);
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     // Basic validation
     const errors = {};
     if (!name.trim()) errors.name = "Please enter your name";
-    if (!email.trim()|| !validateEmail(email)) errors.email = "Please enter your email";
-    if (!validatePassword(password)) errors.password = "Please enter your password";
+    if (!email.trim() || !validateEmail(email)) errors.email = "Please enter a valid email";
+    if (!validatePassword(password)) errors.password = "Password must be at least 8 characters long and contain at least one uppercase letter and one digit";
 
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return;
     }
 
+    // Registration object
+    const registrationData = {
+      name,
+      email,
+      password,
+      organizationId: organizationId
+    };
+
     try {
-      const response = await axios.post(`${apiUrl}/api/v1/user/register/${organizationId}`, {
-        name,
-        email,
-        password,
-        organizationId,
-      });
+      // Send registration request
+      const response = await axios.post(`${apiUrl}/api/v1/user/register/${url}`, registrationData);
       console.log("Registration Successful:", response.data);
-      navigate('/login')
-      // Handle successful registration
+      navigate('/login');
     } catch (error) {
       console.error("Registration Failed:", error);
       // Handle registration error
     }
   };
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode); // Toggle dark mode state
-    if (darkMode) {
-      setImageSrc("../src/assets/half_moon.svg"); // Light mode: moon image
-    } else {
-      setImageSrc("../src/assets/sun.svg"); // Dark mode: sun image
-    }
-  };
 
   return (
-    <div className={`login-container ${darkMode ? "dark-mode" : ""}`}>
-      <div class="login-body">
-        <img
-          className="login-darkmode"
-          type="svg"
-          src={imageSrc}
-          onClick={toggleDarkMode}
-          alt="Dark Mode Toggle"
-        />
-        <div>
-          <img
-            class="login-image"
-            src="../src/assets/login-photo.jfif"
-            alt="Italian Trulli"
-          />
-        </div>
-        <div class="auth-form register" >
-          <h2 class="login-h2">Register</h2>
-          <p class="login-h3">Please enter your data to continue</p>
+    <div className="login-container">
+      <div className="login-body">
+        <div className="auth-form register">
+          <h2 className="login-h2">Register</h2>
+          <p className="login-h3">Please enter your data to continue</p>
           <form>
             <label>
               <Input
@@ -92,10 +73,9 @@ function WorkerRegister() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
               />
-               {errors.name && <div className="error-message">{errors.name}</div>}
+              {errors.name && <div className="error-message">{errors.name}</div>}
             </label>
             <br />
-            
             <label>
               <Input
                 type="email"
@@ -103,7 +83,7 @@ function WorkerRegister() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
               />
-               {errors.email && <div className="error-message">{errors.email}</div>}
+              {errors.email && <div className="error-message">{errors.email}</div>}
             </label>
             <br />
             <label>
@@ -113,14 +93,12 @@ function WorkerRegister() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-                {errors.password && <div className="error-message">{errors.password}</div>} 
+              {errors.password && <div className="error-message">{errors.password}</div>}
             </label>
-            
-            <SubmitButton onClick={handleRegister}>Register</SubmitButton> 
+            <SubmitButton onClick={handleRegister}>Register</SubmitButton>
           </form>
         </div>
       </div>
-     
     </div>
   );
 }
