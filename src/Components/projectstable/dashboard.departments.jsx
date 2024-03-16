@@ -1,149 +1,195 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
-import "../../css/project.allprojects.css"; // Assuming this CSS file contains the styling for both components
-import EditPopup from '../popups/pop.edit';
-import DeletePopup from '../popups/pop.delete';
+import ReactPaginate from 'react-paginate';
+import "../../css/project.allprojects.css";
+import EditPopup from '../popups/pop.edit'; // Import EditPopup component
+import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
-const DepartmentsList = ({ organizationId }) => {
-  const [departmentsData, setDepartmentsData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showEditPopup, setShowEditPopup] = useState(false);
-  const [editItemId, setEditItemId] = useState(null);
-  const [showDeletePopup, setShowDeletePopup] = useState(false);
-  const [deleteItemId, setDeleteItemId] = useState(null);
-  const departmentsPerPage = 5;
+const ProjectList = () => {
+  const organizationId = localStorage.getItem("organizationId");
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [projectsData, setProjectsData] = useState([]);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const projectsPerPage = 3;
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/v1/organization/p/${organizationId}`);
+      console.log("API Response:", response.data);
+      setProjectsData(response.data || []);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      setProjectsData([]);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/v1/organization/o/${organizationId}`);
-        setDepartmentsData(response.data || []);
-      } catch (error) {
-        console.error('Error fetching departments:', error);
-        setDepartmentsData([]);
-      }
-    };
-
+    console.log("Organization ID:", organizationId);
     if (organizationId) {
       fetchData();
     }
   }, [organizationId]);
 
-  const indexOfLastDepartment = (currentPage + 1) * departmentsPerPage;
-  const indexOfFirstDepartment = indexOfLastDepartment - departmentsPerPage;
-  const filteredDepartments = departmentsData.filter(department =>
-    department.departmentName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  const currentDepartments = filteredDepartments.slice(indexOfFirstDepartment, indexOfLastDepartment);
+  const indexOfLastProject = (currentPage + 1) * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+
+  const filterProjects = (project) => {
+    const values = Object.values(project);
+    for (const value of values) {
+      if (
+        typeof value === 'string' &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return true;
+      }
+      if (
+        Array.isArray(value) &&
+        value.join(', ').toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const filteredProjects = projectsData.filter(filterProjects);
+  const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
   };
 
-  const handleSearch = event => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(0);
-  };
-
-  const handleEdit = (departmentId) => {
-    setEditItemId(departmentId);
+  const handleEdit = (projectId) => {
     setShowEditPopup(true);
   };
 
-  const handleDelete = async (departmentId) => {
-    setDeleteItemId(departmentId);
+  const handleDelete = async (projectId) => {
     setShowDeletePopup(true);
   };
 
-  const handleEditConfirm = () => {
-    navigate(`/editdepartment/${editItemId}`);
-    setShowEditPopup(false);
+  const handleStatusChange = async (projectId, status) => {
+    try {
+      await axios.put(`${apiUrl}/v1/project/${projectId}`, {
+        projectStatus: status,
+        organizationId: organizationId,
+      });
+      console.log('Project status updated successfully');
+      setCurrentPage(0); // Reset currentPage to 0 after updating status
+      fetchData(); // Fetch data again to refresh projects after updating status
+    } catch (error) {
+      console.error('Error updating project status:', error);
+    }
   };
 
-  const handleDeleteConfirm = async () => {
-    // Handle delete confirm logic here
-    setShowDeletePopup(false);
-  };
-
-  const handlePopupClose = () => {
-    setShowEditPopup(false);
-    setShowDeletePopup(false);
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
   };
 
   return (
     <div className='project-management-container'>
       <input
         type="text"
-        placeholder="Search by department name"
+        placeholder="Search projects"
         value={searchTerm}
-        onChange={handleSearch}
-        className='project-management-search-input' // Reuse the same search input class
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className='project-management-search-input'
       />
-      {departmentsData.length > 0 ? (
-        <table className='project-management-table'> {/* Reuse the same table class */}
-          <thead>
-            <tr>
-              <th>Department Name</th>
-              <th>Actions</th> {/* Add Actions column */}
-            </tr>
-          </thead>
-          <tbody>
-            {currentDepartments.map(department => (
-              <tr key={department.departmentId}>
-                <td>{department.departmentName}</td>
-                <td>
-                  <select onChange={(e) => {
+      <table className='project-management-table'>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Project Period</th>
+            <th>Start Date</th>
+            <th>Deadline Date</th>
+            <th>Technology Stack</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentProjects.map((project) => (
+            <tr key={project.projectId}>
+              <td>{project.projectName}</td>
+              <td>{project.projectDescription}</td>
+              <td>
+                <select
+                  value={project.projectStatus}
+                  onChange={(e) =>
+                    handleStatusChange(project.projectId, e.target.value)
+                  }
+                >
+                  <option value="not_started">Not Started</option>
+                  <option value="starting">Starting</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="closing">Closing</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </td>
+              <td>{project.projectPeriod}</td>
+              <td>{formatDate(project.projectStartDate)}</td>
+              <td>{formatDate(project.projectDeadline)}</td>
+              <td>
+                {project.technologyStack ? project.technologyStack.join(', ') : '-'}
+              </td>
+              <td>
+                <select
+                  onChange={(e) => {
                     if (e.target.value === 'edit') {
-                      handleEdit(department.departmentId);
+                      handleEdit(project.projectId);
                     } else if (e.target.value === 'delete') {
-                      handleDelete(department.departmentId);
+                      handleDelete(project.projectId);
                     }
-                  }}>
-                    <option value="">Actions</option>
-                    <option value="edit">Edit</option>
-                    <option value="delete">Delete</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No departments found.</p>
-      )}
+                  }}
+                >
+                  <option value="">Actions</option>
+                  <option value="edit">Edit</option>
+                  <option value="delete">Delete</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <ReactPaginate
         className='pagination'
         previousLabel={'Previous'}
         nextLabel={'Next'}
         breakLabel={'...'}
-        pageCount={Math.ceil(filteredDepartments.length / departmentsPerPage)}
+        pageCount={Math.ceil(filteredProjects.length / projectsPerPage)}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         onPageChange={handlePageChange}
         containerClassName={'pagination'}
         activeClassName={'active'}
       />
       {showEditPopup && (
         <EditPopup
-          onClose={handlePopupClose}
-          onConfirm={handleEditConfirm}
-          onCancel={handlePopupClose}
+          onClose={() => setShowEditPopup(false)}
+          onConfirm={() => {
+            setShowEditPopup(false);
+            // Navigate to the edit page
+          }}
         />
       )}
       {showDeletePopup && (
         <DeletePopup
-          onClose={handlePopupClose}
-          onDelete={handleDeleteConfirm}
+          onClose={() => setShowDeletePopup(false)}
+          onDelete={() => {
+            setShowDeletePopup(false);
+            // Handle deletion logic here
+          }}
         />
       )}
     </div>
   );
 };
 
-export default DepartmentsList;
+export default ProjectList;
