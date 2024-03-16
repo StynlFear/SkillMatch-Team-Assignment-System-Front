@@ -29,6 +29,7 @@ import ParentComponent from "../Components/SideBar/app.sidebar.parent.jsx";
 import EditDepartmentPage from "../Pages/department/department.edit.jsx";
 import LogoutPage from "../Pages/authentification/logoutpage.jsx";
 import AvailableWorkersPage from "../Pages/TeamFind/team.assignwtop.jsx";
+import ProjectManagement from "../Pages/Project/project.allprojects.jsx";
 
 const App = () => {
   const project = {
@@ -65,15 +66,13 @@ const App = () => {
         <Route path="/createskill/" element={<SkillForm />} />
         <Route path="/updateskill/q/:skillid" element={<SkillUpdateForm />} />
         <Route path="/skillassignment/:userId" element={<SkillAssignment />} />
-        <Route path="/teamassignment" element={<AvailableWorkersPage />} />        
-        
+        <Route path="/teamassignment" element={<AvailableWorkersPage />} /> 
+        <Route path="/allprojects" element={<ProjectManagement />} />    
         <Route
           path="/viewproject"
           element={<ViewProjectPage project={project} />}
         />
         </Route>
-       
-        {/* Protected routes accessible only to authenticated users */}
       </Routes>
     </BrowserRouter>
   );

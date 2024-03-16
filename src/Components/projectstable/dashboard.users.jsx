@@ -2,28 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
+import "../../css/project.allprojects.css"; // Assuming this CSS file contains the styling for both components
+import EditPopup from '../popups/pop.edit'; // Import EditPopup component
+import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
+
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
+
 const UsersList = ({ organizationName }) => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [usersData, setUsersData] = useState([]);
-  const usersPerPage = 5;
-  
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const usersPerPage = 6;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${apiUrl}/v1/organization/${organizationName}`);
-        setUsersData(response.data || []); // Set usersData to an empty array in case of error
+        setUsersData(response.data || []);
       } catch (error) {
         console.error('Error fetching users:', error);
-        setUsersData([]); // Set usersData to an empty array in case of error
+        setUsersData([]);
       }
     };
 
-    if (organizationName) { // Fetch data only if organizationId is available
+    if (organizationName) {
       fetchData();
     }
   }, [organizationName]);
@@ -42,41 +48,27 @@ const UsersList = ({ organizationName }) => {
 
   const handleSearch = event => {
     setSearchTerm(event.target.value);
-    setCurrentPage(0); // Reset pagination to first page when searching
+    setCurrentPage(0);
   };
 
   const handleEdit = (userId) => {
-    // Implement edit functionality
-    navigate(`/updateuser/q/${userId}`); 
+    setShowEditPopup(true);
   };
 
   const handleDelete = async (userId) => {
-    try {
-      // Make DELETE request to delete the project
-      const response = await axios.delete(`${apiuserUrl}/api/v1/user/${userId}`);
-  
-      // Log success message
-      console.log("User deleted successfully:", response.data);
-  
-      // Refresh the page after deletion
-      window.location.reload();
-  
-      // Optionally, update the state or perform any other actions after deletion
-    } catch (error) {
-      // Log error message if deletion fails
-      console.error("Error deleting User:", error);
-    }
+    setShowDeletePopup(true);
   };
 
   return (
-    <div className='pagination'>
+    <div className='project-management-container'>
       <input
         type="text"
         placeholder="Search by name or email"
         value={searchTerm}
         onChange={handleSearch}
+        className='project-management-search-input' // Reuse the same search input class
       />
-      <table>
+      <table className='project-management-table'> {/* Reuse the same table class */}
         <thead>
           <tr>
             <th>Name</th>
@@ -110,19 +102,36 @@ const UsersList = ({ organizationName }) => {
           ))}
         </tbody>
       </table>
-      <div className="pagination-container">
-        <ReactPaginate
-          previousLabel={'Previous'}
-          nextLabel={'Next'}
-          breakLabel={'...'}
-          pageCount={Math.ceil(filteredUsers.length / usersPerPage)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageChange}
-          containerClassName={'pagination'}
-          activeClassName={'active'}
+      <ReactPaginate
+        className='pagination'
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        pageCount={Math.ceil(filteredUsers.length / usersPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageChange}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
+      {showEditPopup && (
+        <EditPopup
+          onClose={() => setShowEditPopup(false)}
+          onConfirm={() => {
+            setShowEditPopup(false);
+            // Add logic to handle edit confirmation
+          }}
         />
-      </div>
+      )}
+      {showDeletePopup && (
+        <DeletePopup
+          onClose={() => setShowDeletePopup(false)}
+          onDelete={() => {
+            setShowDeletePopup(false);
+            // Add logic to handle delete confirmation
+          }}
+        />
+      )}
     </div>
   );
 };

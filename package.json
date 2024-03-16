@@ -7,7 +7,7 @@
     "dev": "vite",
     "web":"vite build && vite preview",
     "start": "concurrently \"vite\" \"cd ../skillMatch-auth-middleware-main/ && npm start\" \"cd ../skillMatch-master-middleware/ && npm start\"",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

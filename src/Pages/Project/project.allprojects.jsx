@@ -2,21 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import "../../css/project.allprojects.css";
-import EditPopup from '../popups/pop.edit'; // Import EditPopup component
-import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
-
+import "../../css/project.allprojects.css"
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
-const ProjectList = () => {
+const ProjectManagement = () => {
   const organizationId = localStorage.getItem("organizationId");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [projectsData, setProjectsData] = useState([]);
-  const [showDeletePopup, setShowDeletePopup] = useState(false);
-  const [showEditPopup, setShowEditPopup] = useState(false);
-  const projectsPerPage = 3;
+  const projectsPerPage = 5;
 
   const fetchData = async () => {
     try {
@@ -66,11 +61,18 @@ const ProjectList = () => {
   };
 
   const handleEdit = (projectId) => {
-    setShowEditPopup(true);
+    navigate(`/editproject/${projectId}`);
   };
 
   const handleDelete = async (projectId) => {
-    setShowDeletePopup(true);
+    try {
+      const response = await axios.delete(`${apiUrl}/v1/project/${projectId}`);
+      console.log('Project deleted successfully:', response.data);
+      const updatedProjects = projectsData.filter(project => project.projectId !== projectId);
+      setProjectsData(updatedProjects);
+    } catch (error) {
+      console.error('Error deleting project:', error);
+    }
   };
 
   const handleStatusChange = async (projectId, status) => {
@@ -165,31 +167,13 @@ const ProjectList = () => {
         breakLabel={'...'}
         pageCount={Math.ceil(filteredProjects.length / projectsPerPage)}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={15}
         onPageChange={handlePageChange}
         containerClassName={'pagination'}
         activeClassName={'active'}
       />
-      {showEditPopup && (
-        <EditPopup
-          onClose={() => setShowEditPopup(false)}
-          onConfirm={() => {
-            setShowEditPopup(false);
-            // Navigate to the edit page
-          }}
-        />
-      )}
-      {showDeletePopup && (
-        <DeletePopup
-          onClose={() => setShowDeletePopup(false)}
-          onDelete={() => {
-            setShowDeletePopup(false);
-            // Handle deletion logic here
-          }}
-        />
-      )}
     </div>
   );
 };
 
-export default ProjectList;
+export default ProjectManagement;

@@ -4,7 +4,6 @@ import "./app.sidebar.css"; // Import CSS for styling
 
 function Sidebar({ toggleSidebar }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const handleToggleMenu = () => {
     setIsOpen(!isOpen);
     toggleSidebar(!isOpen); // Pass the updated state to the parent component
