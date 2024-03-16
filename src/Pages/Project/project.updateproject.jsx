@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
@@ -8,6 +9,7 @@ const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 function UpdateProjectPage() {
   const { projectId } = useParams();
   // State variables to store the form input values
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [period, setPeriod] = useState("fixed");
@@ -17,9 +19,36 @@ function UpdateProjectPage() {
   const [techStack, setTechStack] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
 
-  // Fetch project data on component mount
+  useEffect(() => {
+    // Fetch project data using projectId
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/v1/project/${projectId}`);
+        const projectData = response.data.data;
+        setTitle(projectData.projectName);
+        setDescription(projectData.projectDescription);
+        setPeriod(projectData.projectPeriod.toLowerCase());
+        // Format the start date
+        setStartDate(formatDate(projectData.projectStartDate));
+        // Format the deadline date if present
+        if (projectData.projectDeadline) {
+          setDeadlineDate(formatDate(projectData.projectDeadline));
+        }
+        setStatus(projectData.projectStatus.toLowerCase());
+        setTechStack(projectData.technologyStack.join('\n'));
+      } catch (error) {
+        console.error('Error fetching project:', error);
+      }
+    };
+  
+    fetchProject();
+  }, [projectId]);
 
-
+  // Function to format date from "YYYY-MM-DD" to "MM/DD/YYYY"
+  const formatDate = (date) => {
+    const [year, month, day] = date.split("-");
+    return `${day}/${month}/${year}`;
+  };
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +68,7 @@ function UpdateProjectPage() {
     axios.put(`${apiUrl}/v1/project/${projectId}`, projectData)
       .then(response => {
         console.log("Project updated successfully:", response.data);
+        navigate("/dashboard")
         // Optionally handle the response or perform any necessary actions
       })
       .catch(error => {
@@ -54,7 +84,6 @@ function UpdateProjectPage() {
         : [...prevRoles, role]
     );
   };
-
 
   return (
     <div>

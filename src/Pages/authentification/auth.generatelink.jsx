@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode"; // Correct import statement for jwtDecode
 import Input from "../../Components/Inputs/auth.inputs";
 import SubmitButton from "../../Components/Buttons/submit.button";
+import Sidebar from "../../Components/SideBar/app.sidebard";
 const apiUrl = import.meta.env.VITE_APP_USER_IP;
 function GenerateLinkPage() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ function GenerateLinkPage() {
 
 
   return (
+    <div><Sidebar/>
     <div className="generate-link-container">
       <h1 className="generate-link-title ">Share the organization link</h1>
       <p className="generate-link-description">
@@ -97,6 +99,7 @@ function GenerateLinkPage() {
           />
         </div>
       )}
+    </div>
     </div>
   );
 }

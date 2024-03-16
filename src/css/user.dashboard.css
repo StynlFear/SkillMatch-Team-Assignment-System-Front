@@ -1,15 +1,29 @@
-
 .dashboard {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  justify-content: center; /* Center cards horizontally */
+}
 
 .card {
-  margin-top: 10vh;
-  flex: 0 0 calc(33.33% - 20px);
+  flex: 0 0 calc(50% - 20px); /* Each card takes up half of the available width with some margin */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin: 20px 10px; /* Add margin around each card */
+  overflow: hidden; /* Ensure content overflow is hidden */
+  max-width: 100vh; /* Limit the maximum width of each card */
+  max-height: 200vh;
+  height: 100%;
+  width: 100%; /* Ensure cards take up full width */
+}
+
+.card-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: center; /* Center text horizontally */
+}
+
+.card-body {
   padding: 20px;
 }

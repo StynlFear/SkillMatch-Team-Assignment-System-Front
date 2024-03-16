@@ -27,6 +27,9 @@ import "../css/user.dashboard.css";
 import "boxicons/css/boxicons.min.css";
 import ParentComponent from "../Components/SideBar/app.sidebar.parent.jsx";
 import EditDepartmentPage from "../Pages/department/department.edit.jsx";
+import LogoutPage from "../Pages/authentification/logoutpage.jsx";
+import AvailableWorkersPage from "../Pages/TeamFind/team.assignwtop.jsx";
+import ProjectManagement from "../Pages/Project/project.allprojects.jsx";
 
 const App = () => {
   const project = {
@@ -57,21 +60,19 @@ const App = () => {
         <Route path="/createdepartment" element={<CreateDepartmentPage />} />
         <Route path="/editdepartment/:departmentId" element={<EditDepartmentPage />} />
         <Route path="/createproject/" element={<CreateProjectPage />} />
-
+        <Route path="/logout/" element={<LogoutPage />} />
         <Route path="/editproject/:projectId" element={<UpdateProjectPage />} />
         <Route path="/updateuser/q/:userid" element={<UpdateUserPage />} />
         <Route path="/createskill/" element={<SkillForm />} />
         <Route path="/updateskill/q/:skillid" element={<SkillUpdateForm />} />
         <Route path="/skillassignment/:userId" element={<SkillAssignment />} />
-        <Route path="/teamassignment" element={<EmployeeSearch />} />        
-        
+        <Route path="/teamassignment" element={<AvailableWorkersPage />} /> 
+        <Route path="/allprojects" element={<ProjectManagement />} />    
         <Route
           path="/viewproject"
           element={<ViewProjectPage project={project} />}
         />
         </Route>
-       
-        {/* Protected routes accessible only to authenticated users */}
       </Routes>
     </BrowserRouter>
   );
