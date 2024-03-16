@@ -45,20 +45,26 @@ function Sidebar({ toggleSidebar }) {
                 <span className="link">Users</span>
               </a>
             </li>
-            
+
             <li className="list">
               <a href="/createdepartment" className="nav-link">
                 <i className="bx bx-message-rounded icon"></i>
                 <span className="link">Departments</span>
               </a>
             </li>
-          <li className="list">
+            <li className="list">
+              <a href="/generatelink" className="nav-link">
+                <i className="bx bx-bell icon"></i>
+                <span className="link">Register Link</span>
+              </a>
+            </li>
+            <li className="list">
               <a href="/logout" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Logout</span>
               </a>
             </li>
-            </ul>
+          </ul>
           <div className="bottom-content">
             <li className="list">
               <a href="#" className="nav-link">

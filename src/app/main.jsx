@@ -53,7 +53,7 @@ const App = () => {
         <Route path="/userlist" element={<UsersList />} />
         <Route path="/decoder" element={<JwtDecoder />} />
         <Route path="/departmentlist/:organizationId" element={<DepartmentsList />} />
-        <Route path="/worker/:organizationId" element={<WorkerRegister />} />
+        <Route path="/worker/:url" element={<WorkerRegister />} />
         <Route element={<ProtectedRoute  />}>
         <Route path="/dashboard/" element={<UserDashboard />} />
         <Route path="/generatelink" element={<WorkerLink />} />
@@ -69,7 +69,7 @@ const App = () => {
         <Route path="/teamassignment" element={<AvailableWorkersPage />} /> 
         <Route path="/allprojects" element={<ProjectManagement />} />    
         <Route
-          path="/viewproject"
+          path="/viewproject/:projectId"
           element={<ViewProjectPage project={project} />}
         />
         </Route>
