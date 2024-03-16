@@ -101,63 +101,65 @@ const ProjectList = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className='project-management-search-input'
       />
-      <table className='project-management-table'>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Project Period</th>
-            <th>Start Date</th>
-            <th>Deadline Date</th>
-            <th>Technology Stack</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentProjects.map((project) => (
-            <tr key={project.projectId}>
-              <td>{project.projectName}</td>
-              <td>{project.projectDescription}</td>
-              <td>
-                <select
-                  value={project.projectStatus}
-                  onChange={(e) =>
-                    handleStatusChange(project.projectId, e.target.value)
-                  }
-                >
-                  <option value="not_started">Not Started</option>
-                  <option value="starting">Starting</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="closing">Closing</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </td>
-              <td>{project.projectPeriod}</td>
-              <td>{formatDate(project.projectStartDate)}</td>
-              <td>{formatDate(project.projectDeadline)}</td>
-              <td>
-                {project.technologyStack ? project.technologyStack.join(', ') : '-'}
-              </td>
-              <td>
-                <select
-                  onChange={(e) => {
-                    if (e.target.value === 'edit') {
-                      handleEdit(project.projectId);
-                    } else if (e.target.value === 'delete') {
-                      handleDelete(project.projectId);
-                    }
-                  }}
-                >
-                  <option value="">Actions</option>
-                  <option value="edit">Edit</option>
-                  <option value="delete">Delete</option>
-                </select>
-              </td>
+      <div className='table-container'>
+        <table className='project-management-table'>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Project Period</th>
+              <th>Start Date</th>
+              <th>Deadline Date</th>
+              <th>Technology Stack</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentProjects.map((project) => (
+              <tr key={project.projectId}>
+                <td>{project.projectName}</td>
+                <td>{project.projectDescription}</td>
+                <td>
+                  <select
+                    value={project.projectStatus}
+                    onChange={(e) =>
+                      handleStatusChange(project.projectId, e.target.value)
+                    }
+                  >
+                    <option value="not_started">Not Started</option>
+                    <option value="starting">Starting</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="closing">Closing</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                </td>
+                <td>{project.projectPeriod}</td>
+                <td>{formatDate(project.projectStartDate)}</td>
+                <td>{formatDate(project.projectDeadline)}</td>
+                <td>
+                  {project.technologyStack ? project.technologyStack.join(', ') : '-'}
+                </td>
+                <td>
+                  <select
+                    onChange={(e) => {
+                      if (e.target.value === 'edit') {
+                        handleEdit(project.projectId);
+                      } else if (e.target.value === 'delete') {
+                        handleDelete(project.projectId);
+                      }
+                    }}
+                  >
+                    <option value="">Actions</option>
+                    <option value="edit">Edit</option>
+                    <option value="delete">Delete</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <ReactPaginate
         className='pagination'
         previousLabel={'Previous'}
