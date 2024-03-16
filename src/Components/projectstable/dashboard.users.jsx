@@ -16,6 +16,7 @@ const UsersList = ({ organizationName }) => {
   const [usersData, setUsersData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // Track the selected user ID
   const usersPerPage = 6;
 
   useEffect(() => {
@@ -52,11 +53,36 @@ const UsersList = ({ organizationName }) => {
   };
 
   const handleEdit = (userId) => {
+    setSelectedUserId(userId); // Set the selected user ID
     setShowEditPopup(true);
   };
 
   const handleDelete = async (userId) => {
+    setSelectedUserId(userId); // Set the selected user ID
     setShowDeletePopup(true);
+  };
+
+  const handleEditConfirm = () => {
+    // Add logic to handle edit confirmation, e.g., navigate to edit page
+    setShowEditPopup(false);
+    if (selectedUserId) {
+      navigate(`/updateuser/q/${selectedUserId}`);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    // Add logic to handle delete confirmation
+    setShowDeletePopup(false);
+    if (selectedUserId) {
+      try {
+        const response = await axios.delete(`${apiuserUrl}/api/v1/user/${selectedUserId}`);
+        console.log('User deleted successfully:', response.data);
+        const updatedUsers = usersData.filter(user => user.userId !== selectedUserId);
+        setUsersData(updatedUsers);
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
   };
 
   return (
@@ -117,19 +143,13 @@ const UsersList = ({ organizationName }) => {
       {showEditPopup && (
         <EditPopup
           onClose={() => setShowEditPopup(false)}
-          onConfirm={() => {
-            setShowEditPopup(false);
-            // Add logic to handle edit confirmation
-          }}
+          onConfirm={handleEditConfirm} // Call handleEditConfirm function on confirmation
         />
       )}
       {showDeletePopup && (
         <DeletePopup
           onClose={() => setShowDeletePopup(false)}
-          onDelete={() => {
-            setShowDeletePopup(false);
-            // Add logic to handle delete confirmation
-          }}
+          onDelete={handleDeleteConfirm} // Call handleDeleteConfirm function on confirmation
         />
       )}
     </div>

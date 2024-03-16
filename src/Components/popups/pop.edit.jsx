@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "../../css/pop.css"
+
 const EditPopup = ({ onClose, onConfirm }) => {
-  const [confirming, setConfirming] = useState(false);
+  const handleConfirm = () => {
+    onConfirm(); // Trigger the onConfirm function passed from the parent component
+    onClose(); // Close the popup
+  };
 
   return (
     <div className="popup-overlay">
@@ -10,7 +14,7 @@ const EditPopup = ({ onClose, onConfirm }) => {
           <h2>Confirmation</h2>
           <p>Are you sure you want to go to the edit page?</p>
           <div className="popup-buttons">
-            <button onClick={onConfirm}>Yes</button>
+            <button onClick={handleConfirm}>Yes</button>
             <button onClick={onClose}>No</button>
           </div>
         </div>

@@ -8,24 +8,25 @@ import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
-const ProjectList = () => {
+const DepartmentList = () => {
   const organizationId = localStorage.getItem("organizationId");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  const [projectsData, setProjectsData] = useState([]);
+  const [departmentsData, setDepartmentsData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
-  const projectsPerPage = 3;
+  const [popupDepartmentId, setPopupDepartmentId] = useState(null); // Track the departmentId for the popup
+  const departmentsPerPage = 3;
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/v1/organization/p/${organizationId}`);
+      const response = await axios.get(`${apiUrl}/v1/organization/o/${organizationId}`);
       console.log("API Response:", response.data);
-      setProjectsData(response.data || []);
+      setDepartmentsData(response.data || []);
     } catch (error) {
-      console.error('Error fetching projects:', error);
-      setProjectsData([]);
+      console.error('Error fetching departments:', error);
+      setDepartmentsData([]);
     }
   };
 
@@ -36,11 +37,11 @@ const ProjectList = () => {
     }
   }, [organizationId]);
 
-  const indexOfLastProject = (currentPage + 1) * projectsPerPage;
-  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const indexOfLastDepartment = (currentPage + 1) * departmentsPerPage;
+  const indexOfFirstDepartment = indexOfLastDepartment - departmentsPerPage;
 
-  const filterProjects = (project) => {
-    const values = Object.values(project);
+  const filterDepartments = (department) => {
+    const values = Object.values(department);
     for (const value of values) {
       if (
         typeof value === 'string' &&
@@ -58,45 +59,43 @@ const ProjectList = () => {
     return false;
   };
 
-  const filteredProjects = projectsData.filter(filterProjects);
-  const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
+  const filteredDepartments = departmentsData.filter(filterDepartments);
+  const currentDepartments = filteredDepartments.slice(indexOfFirstDepartment, indexOfLastDepartment);
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
   };
 
-  const handleEdit = (projectId) => {
-    setShowEditPopup(true);
+  const handleEdit = (departmentId) => {
+    setPopupDepartmentId(departmentId); // Set the departmentId for later use
+    setShowEditPopup(true); // Open the edit popup
   };
-
-  const handleDelete = async (projectId) => {
-    setShowDeletePopup(true);
+  
+  const handleDelete = (departmentId) => {
+    setPopupDepartmentId(departmentId); // Set the departmentId for later use
+    setShowDeletePopup(true); // Open the delete popup
   };
+  
 
-  const handleStatusChange = async (projectId, status) => {
+  const handleStatusChange = async (departmentId, status) => {
     try {
-      await axios.put(`${apiUrl}/v1/project/${projectId}`, {
-        projectStatus: status,
+      await axios.put(`${apiUrl}/v1/department/${departmentId}`, {
+        departmentStatus: status,
         organizationId: organizationId,
       });
-      console.log('Project status updated successfully');
+      console.log('Department status updated successfully');
       setCurrentPage(0); // Reset currentPage to 0 after updating status
-      fetchData(); // Fetch data again to refresh projects after updating status
+      fetchData(); // Fetch data again to refresh departments after updating status
     } catch (error) {
-      console.error('Error updating project status:', error);
+      console.error('Error updating department status:', error);
     }
-  };
-
-  const formatDate = (dateString) => {
-    const [year, month, day] = dateString.split("-");
-    return `${day}/${month}/${year}`;
   };
 
   return (
     <div className='project-management-container'>
       <input
         type="text"
-        placeholder="Search projects"
+        placeholder="Search departments"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className='project-management-search-input'
@@ -105,47 +104,20 @@ const ProjectList = () => {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Project Period</th>
-            <th>Start Date</th>
-            <th>Deadline Date</th>
-            <th>Technology Stack</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {currentProjects.map((project) => (
-            <tr key={project.projectId}>
-              <td>{project.projectName}</td>
-              <td>{project.projectDescription}</td>
-              <td>
-                <select
-                  value={project.projectStatus}
-                  onChange={(e) =>
-                    handleStatusChange(project.projectId, e.target.value)
-                  }
-                >
-                  <option value="not_started">Not Started</option>
-                  <option value="starting">Starting</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="closing">Closing</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </td>
-              <td>{project.projectPeriod}</td>
-              <td>{formatDate(project.projectStartDate)}</td>
-              <td>{formatDate(project.projectDeadline)}</td>
-              <td>
-                {project.technologyStack ? project.technologyStack.join(', ') : '-'}
-              </td>
+          {currentDepartments.map((department) => (
+            <tr key={department.departmentId}>
+              <td>{department.departmentName}</td>
               <td>
                 <select
                   onChange={(e) => {
                     if (e.target.value === 'edit') {
-                      handleEdit(project.projectId);
+                      handleEdit(department.departmentId);
                     } else if (e.target.value === 'delete') {
-                      handleDelete(project.projectId);
+                      handleDelete(department.departmentId);
                     }
                   }}
                 >
@@ -163,7 +135,7 @@ const ProjectList = () => {
         previousLabel={'Previous'}
         nextLabel={'Next'}
         breakLabel={'...'}
-        pageCount={Math.ceil(filteredProjects.length / projectsPerPage)}
+        pageCount={Math.ceil(filteredDepartments.length / departmentsPerPage)}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={handlePageChange}
@@ -175,16 +147,27 @@ const ProjectList = () => {
           onClose={() => setShowEditPopup(false)}
           onConfirm={() => {
             setShowEditPopup(false);
-            // Navigate to the edit page
+            if (popupDepartmentId) {
+              navigate(`/editdepartment/${popupDepartmentId}`); // Navigate to the edit page
+            }
           }}
         />
       )}
       {showDeletePopup && (
         <DeletePopup
           onClose={() => setShowDeletePopup(false)}
-          onDelete={() => {
+          onDelete={async () => {
             setShowDeletePopup(false);
-            // Handle deletion logic here
+            if (popupDepartmentId) {
+              try {
+                const response = await axios.delete(`${apiUrl}/v1/department/${popupDepartmentId}`);
+                console.log('Department deleted successfully:', response.data);
+                const updatedDepartments = departmentsData.filter(department => department.departmentId !== popupDepartmentId);
+                setDepartmentsData(updatedDepartments);
+              } catch (error) {
+                console.error('Error deleting department:', error);
+              }
+            }
           }}
         />
       )}
@@ -192,4 +175,4 @@ const ProjectList = () => {
   );
 };
 
-export default ProjectList;
+export default DepartmentList;

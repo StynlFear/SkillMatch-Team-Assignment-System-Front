@@ -16,6 +16,7 @@ const ProjectList = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [popupProjectId, setPopupProjectId] = useState(null);
   const projectsPerPage = 3;
 
   const fetchData = async () => {
@@ -66,12 +67,15 @@ const ProjectList = () => {
   };
 
   const handleEdit = (projectId) => {
-    setShowEditPopup(true);
+    setPopupProjectId(projectId); // Set the projectId for later use
+    setShowEditPopup(true); // Open the edit popup
   };
-
-  const handleDelete = async (projectId) => {
-    setShowDeletePopup(true);
+  
+  const handleDelete = (projectId) => {
+    setPopupProjectId(projectId); // Set the projectId for later use
+    setShowDeletePopup(true); // Open the delete popup
   };
+  
 
   const handleStatusChange = async (projectId, status) => {
     try {
@@ -173,23 +177,43 @@ const ProjectList = () => {
         activeClassName={'active'}
       />
       {showEditPopup && (
-        <EditPopup
-          onClose={() => setShowEditPopup(false)}
-          onConfirm={() => {
-            setShowEditPopup(false);
-            // Navigate to the edit page
-          }}
-        />
-      )}
-      {showDeletePopup && (
-        <DeletePopup
-          onClose={() => setShowDeletePopup(false)}
-          onDelete={() => {
-            setShowDeletePopup(false);
-            // Handle deletion logic here
-          }}
-        />
-      )}
+  <EditPopup
+    onClose={() => setShowEditPopup(false)}
+    onConfirm={() => {
+      setShowEditPopup(false);
+      navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
+    }}
+  />
+)}
+{showEditPopup && (
+  <EditPopup
+    onClose={() => setShowEditPopup(false)}
+    onConfirm={() => {
+      setShowEditPopup(false);
+      if (popupProjectId) {
+        navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
+      }
+    }}
+  />
+)}
+{showDeletePopup && (
+  <DeletePopup
+    onClose={() => setShowDeletePopup(false)}
+    onDelete={async () => {
+      setShowDeletePopup(false);
+      if (popupProjectId) {
+        try {
+          const response = await axios.delete(`${apiUrl}/v1/project/${popupProjectId}`);
+          console.log('Project deleted successfully:', response.data);
+          const updatedProjects = projectsData.filter(project => project.projectId !== popupProjectId);
+          setProjectsData(updatedProjects);
+        } catch (error) {
+          console.error('Error deleting project:', error);
+        }
+      }
+    }}
+  />
+)}
     </div>
   );
 };
