@@ -1,0 +1,73 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    background-color: #DEDFE3; 
+}
+
+.register-box {
+    background-color: #FFFFFF; 
+    border-radius: 12px; 
+    padding: 20px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    max-width: 400px; 
+    width: 90%; 
+}
+
+.register-container h2 {
+    font-size: 32px; 
+    margin-bottom: 5px; 
+}
+
+.register-container form {
+    width: 100%;
+    max-width: 350px; 
+}
+
+.register-container form > div {
+    margin-bottom: 5px; 
+}
+
+.register-container form label {
+    display: block;
+    margin-bottom: 10px; 
+    font-weight: bold;
+}
+
+.register-container form .error-message {
+    color: red;
+    font-size: 12px; 
+}
+
+/* Styling for inputs */
+.register-container form input[type="text"],
+.register-container form input[type="email"],
+.register-container form input[type="password"] {
+    width: 100%;
+    padding: 3px; 
+    border: none;
+    border-radius: 12px;
+    background-color: #EDEFF2; /* Match background color of the login page */
+    font-size: 16px; /* Match the font size of the login page */
+    margin-bottom: 10px; /* Increase margin-bottom for better spacing */
+}
+
+/* Styling for the Register button */
+.register-container form button[type="submit"] {
+    width: 100%;
+    padding: 10px; 
+    border: none;
+    border-radius: 12px;
+    background: #6063E9;
+    color: #FFFFFF;
+    font-size: 16px; /* Match the font size of the login page */
+    margin-top: 20px; /* Adjust margin-top for spacing */
+}
+
+.register-container form button[type="submit"]:hover {
+    background-color: #0056b3; /* Match hover color of the login page */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}

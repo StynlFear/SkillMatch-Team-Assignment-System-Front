@@ -3,6 +3,8 @@ import SubmitButton from "../../Components/Buttons/submit.button";
 import Input from "../../Components/Inputs/auth.inputs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../css/auth.register.css";
+
 const Register = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -57,71 +59,74 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>
-            Name:
-            <Input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          {errors.name && <div className="error-message">{errors.name}</div>}
-        </div>
+    <div className="register-container">
+      <div className="register-box">
+        <h2>Register</h2>
+        <div></div>
+        <form onSubmit={handleRegister}>
+          <div>
+            <label>
+              Name:
+              <Input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            {errors.name && <div className="error-message">{errors.name}</div>}
+          </div>
 
-        <div>
-          <label>
-            Email:
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          {errors.email && <div className="error-message">{errors.email}</div>}
-        </div>
+          <div>
+            <label>
+              Email:
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+            {errors.email && <div className="error-message">{errors.email}</div>}
+          </div>
 
-        <div>
-          <label>
-            Password:
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          {errors.password && <div className="error-message">{errors.password}</div>}
-        </div>
+          <div>
+            <label>
+              Password:
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+            {errors.password && <div className="error-message">{errors.password}</div>}
+          </div>
 
-        <div>
-          <label>
-            Organization Name:
-            <Input
-              type="text"
-              value={organizationName}
-              onChange={(e) => setOrganizationName(e.target.value)}
-            />
-          </label>
-          {errors.organizationName && <div className="error-message">{errors.organizationName}</div>}
-        </div>
+          <div>
+            <label>
+              Organization Name:
+              <Input
+                type="text"
+                value={organizationName}
+                onChange={(e) => setOrganizationName(e.target.value)}
+              />
+            </label>
+            {errors.organizationName && <div className="error-message">{errors.organizationName}</div>}
+          </div>
 
-        <div>
-          <label>
-            Headquarters Address:
-            <Input
-              type="text"
-              value={headquartersAddress}
-              onChange={(e) => setHeadquartersAddress(e.target.value)}
-            />
-          </label>
-          {errors.headquartersAddress && <div className="error-message">{errors.headquartersAddress}</div>}
-        </div>
+          <div>
+            <label>
+              Headquarters Address:
+              <Input
+                type="text"
+                value={headquartersAddress}
+                onChange={(e) => setHeadquartersAddress(e.target.value)}
+              />
+            </label>
+            {errors.headquartersAddress && <div className="error-message">{errors.headquartersAddress}</div>}
+          </div>
 
-        <SubmitButton onClick={handleRegister} type="submit">Register</SubmitButton>
-      </form>
+          <SubmitButton className="register" onClick={handleRegister} type="submit">Register</SubmitButton>
+        </form>
+      </div>
     </div>
   );
 };

@@ -27,19 +27,29 @@ body{
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
-        letter-spacing: 0em;
-text-align: left;
+    letter-spacing: 0em;
+    text-align: left;
 }
-.default-button{
-    width: 367px;
-    height: 48px;
-    top: 700px;
-    left: 994px;
-    border-radius: 12px;
-    border: none;
-    background: #6063E9;
-    margin-top: 20px;
-    color: #FFFFFF;;
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.default-button {
+  width: 370px;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  background: #6063E9;
+  margin-top: 20px;
+  color: #FFFFFF;
+}
+.register{
+  margin-left: 5px;
+  width:355px;
 }
 .login-p{
     font-family: Source Sans Pro;
