@@ -1,12 +1,15 @@
+// AvailableWorkersPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import CreateProjectAssignment from '../Project/project.proposal';
+import "../../css/project.available.css";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const AvailableWorkersPage = () => {
   const [availableWorkers, setAvailableWorkers] = useState([]);
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState('');
+  const [selectedUser, setSelectedUser] = useState(null); // State to hold selected user
   const [searchQuery, setSearchQuery] = useState('');
   const orgName = localStorage.getItem("organizationName");
 
@@ -39,7 +42,7 @@ const AvailableWorkersPage = () => {
   }, [orgName]); // Run useEffect whenever orgName changes
 
   const addWorkerToTeam = (worker) => {
-    // Your addWorkerToTeam function implementation
+    setSelectedUser(worker); // Set the selected user when Add to Team button is clicked
   };
 
   // Filter available workers based on search query
@@ -49,7 +52,7 @@ const AvailableWorkersPage = () => {
   );
 
   return (
-    <div>
+    <div className='available-workers-page-container'>
       <h2>Available Workers</h2>
       {/* Dropdown to select project */}
       <select value={selectedProject} onChange={(e) => setSelectedProject(e.target.value)}>
@@ -74,6 +77,10 @@ const AvailableWorkersPage = () => {
           </li>
         ))}
       </ul>
+      {/* Pass selected user and project to CreateProjectAssignment component */}
+      {selectedUser && selectedProject && (
+        <CreateProjectAssignment user={selectedUser} projectId={selectedProject} />
+      )}
     </div>
   );
 };
