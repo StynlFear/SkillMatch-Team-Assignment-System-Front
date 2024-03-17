@@ -67,7 +67,7 @@ function GenerateLinkPage() {
       const url = response.data.url;
   
       // Construct the final link
-      const link = `http://localhost:5173/worker/${url}`;
+      const link = `https://seahorse-app-pi3di.ondigitalocean.app/worker/${url}`;
   
       // Set the generated link
       setRandomLink(link);

@@ -21,7 +21,7 @@ const SkillList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/v1/skill/all/9e385a4d-e014-473c-9a42-68f84394938d`);
+      const response = await axios.get(`${apiUrl}/v1/skill/all/19c9486f-5bce-472a-ad17-00899256e227`);
       console.log("API Response:", response.data);
       setSkillsData(response.data || []);
     } catch (error) {

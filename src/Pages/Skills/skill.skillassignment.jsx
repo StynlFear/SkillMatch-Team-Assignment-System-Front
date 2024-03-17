@@ -1,45 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "../../css/skill.assignment.css"
+import { jwtDecode } from 'jwt-decode';
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
+
 function SkillAssignment() {
-    // Mock data for skills
-    const skillsData = [
-        { id: 1, name: 'Skill 1' },
-        { id: 2, name: 'Skill 2' },
-        { id: 3, name: 'Skill 3' }
-    ];
-
-    // Mock data for user skills
-    const [userSkills, setUserSkills] = useState([]);
-
     // State variables for form fields
+    const { userId } = useParams();
+    const organizationId = localStorage.getItem('organizationId');
     const [selectedSkill, setSelectedSkill] = useState('');
     const [selectedLevel, setSelectedLevel] = useState('');
     const [selectedExperience, setSelectedExperience] = useState('');
     // State variable for error handling
     const [error, setError] = useState('');
+    // State variable to store organization skills
+    const [organizationSkills, setOrganizationSkills] = useState([]);
+    //Decode token to get user id
+    // Function to fetch organization skills
+    const fetchOrganizationSkills = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/v1/organization/s/${organizationId}`);
+            setOrganizationSkills(response.data);
+        } catch (error) {
+            console.error('Error fetching organization skills:', error);
+        }
+    };
+
+    // Fetch organization skills on component mount
+    useEffect(() => {
+        fetchOrganizationSkills();
+    }, []);
 
     // Function to handle skill assignment
     const handleAssignSkill = (e) => {
         e.preventDefault();
-        // Add the selected skill to userSkills
-        const newUserSkill = {
-            id: userSkills.length + 1,
-            skillName: selectedSkill,
-            level: selectedLevel,
-            experience: selectedExperience
+
+        // Find the selected skill object from organizationSkills array
+        const selectedSkillObj = organizationSkills.find(skill => skill.skillName === selectedSkill);
+        if (!selectedSkillObj) {
+            return;
+        }
+
+        // Prepare the data to be sent
+        const formData = {
+            userId: userId,
+            skillId: selectedSkillObj.skillId, // Use skillId from the selected skill object
+            skillLevel: selectedLevel,
+            skillExperience: selectedExperience
         };
-        setUserSkills([...userSkills, newUserSkill]);
-        // Reset form fields
-        setSelectedSkill('');
-        setSelectedLevel('');
-        setSelectedExperience('');
+
+        // Send the data using Axios POST request
+        axios.post(`${apiUrl}/v1/skill/AssignSkill`, formData)
+            .then(response => {
+                console.log("Skill assigned successfully:", response.data);
+                // Reset form fields
+                setSelectedSkill('');
+                setSelectedLevel('');
+                setSelectedExperience('');
+            })
+            .catch(error => {
+                console.error('Error assigning skill:', error);
+                setError('Error assigning skill. Please try again.'); // Set error message
+            });
     };
 
     return (
         <div>
             <h2>Assign Skills</h2>
             {error && <div>{error}</div>}
-            <form onSubmit={handleAssignSkill}  className='skill-assignment-container'>
+            <form onSubmit={handleAssignSkill} className='skill-assignment-container'>
                 <div>
                     <label htmlFor="skill">Skill:</label>
                     <select
@@ -49,8 +78,8 @@ function SkillAssignment() {
                         required
                     >
                         <option value="">Select Skill</option>
-                        {skillsData.map(skill => (
-                            <option key={skill.id} value={skill.name}>{skill.name}</option>
+                        {organizationSkills.map(skill => (
+                            <option key={skill.skillId} value={skill.skillName}>{skill.skillName}</option>
                         ))}
                     </select>
                 </div>
@@ -89,17 +118,6 @@ function SkillAssignment() {
                 </div>
                 <button type="submit">Assign Skill</button>
             </form>
-
-            <h2>My Skills</h2>
-            <div className='skill-card-container skill-card'>
-            <ul>
-                {userSkills.map(userSkill => (
-                    <li key={userSkill.id}>
-                        {userSkill.skillName} - Level: {userSkill.level}, Experience: {userSkill.experience}
-                    </li>
-                ))}
-            </ul>
-            </div>
         </div>
     );
 }

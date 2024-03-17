@@ -1,0 +1,39 @@
+.team-view-container {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+  }
+  
+  .team-view-container thead {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .team-view-container th,
+  .team-view-container td {
+    padding: 0.5rem;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .team-view-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .team-view-container tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  @media (max-width: 600px) {
+    .team-view-container {
+      font-size: 0.9rem;
+    }
+  
+    .team-view-container th,
+    .team-view-container td {
+      padding: 0.25rem;
+    }
+  }
