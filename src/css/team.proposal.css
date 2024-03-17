@@ -1,0 +1,48 @@
+.proposal-management-container {
+    width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .proposal-management-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .proposal-management-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .proposal-management-container li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  .proposal-management-container div {
+    margin-bottom: 0.5rem;
+  }
+  
+  .proposal-management-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .proposal-management-container button:hover {
+    background-color: #0056b3;
+  }
