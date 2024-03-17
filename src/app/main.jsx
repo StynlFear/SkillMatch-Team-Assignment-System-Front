@@ -11,7 +11,7 @@ import CreateProjectPage from "../Pages/Project/project.createproject.jsx";
 import UpdateUserPage from "../Pages/User/user.updateuser.jsx";
 import SkillForm from "../Pages/Skills/user.skillscreation.jsx";
 import SkillUpdateForm from "../Pages/Skills/user.updateskill.jsx";
-import SkillAssignment from "../Pages/Skills/user.skillassignment.jsx";
+import SkillAssignment from "../Pages/Skills/user.skillassignmentself.jsx";
 import EmployeeSearch from "../Pages/TeamFind/team.available.jsx";
 import ViewProjectPage from "../Pages/Project/project.viewproject.jsx";
 import ProtectedRoute from "../routes/ProtectedRoute.jsx";
@@ -35,7 +35,9 @@ import CustomRoleForm from "../Pages/customroles.jsx/customrole.create.jsx";
 import CreateProjectAssignment from "../Pages/Project/project.proposal.jsx";
 import ProposalManagement from "../Pages/TeamFind/team.proposal.jsx";
 import CreateTeamForm from "../Pages/team/team.createteam.jsx";
-
+import TeamView from "../Pages/team/team.viewteam.jsx";
+import SkillAssignmentSelf from "../Pages/Skills/user.skillassignmentself.jsx";
+import ViewUser from "../Pages/User/user.viewuser.jsx";
 const App = () => {
   const project = {
     title: "Project Title",
@@ -78,6 +80,11 @@ const App = () => {
         <Route path="/proposal/:projectId" element={<CreateProjectAssignment />} />
         <Route path="/proposals/:projectId" element={<ProposalManagement />} /> 
         <Route path="/createteam/:projectId" element={<CreateTeamForm />} /> 
+        <Route path="/viewteam/:projectId" element={<TeamView />} />
+        <Route path="/skillassignmentself" element={<SkillAssignmentSelf />} />
+        <Route path="/skillassignmentself/:userId" element={<SkillAssignment />} />
+       
+        <Route path="/" element={<LoginPage />} />
         <Route
           path="/viewproject/:projectId"
           element={<ViewProjectPage project={project} />}
