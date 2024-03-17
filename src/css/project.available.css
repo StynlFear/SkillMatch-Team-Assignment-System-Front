@@ -1,0 +1,58 @@
+.available-workers-page-container {
+    width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .available-workers-page-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .available-workers-page-container select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .available-workers-page-container input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .available-workers-page-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .available-workers-page-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .available-workers-page-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .available-workers-page-container button:hover {
+    background-color: #0056b3;
+  }
