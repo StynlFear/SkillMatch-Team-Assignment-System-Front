@@ -1,35 +1,44 @@
 .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .popup {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .popup-content {
-    text-align: center;
-  }
-  
-  .popup-buttons {
-    margin-top: 20px;
-  }
-  
-  .popup-buttons button {
-    margin-right: 10px;
-  }
-  
-  .popup-buttons button:last-child {
-    margin-right: 0;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Transparent version of login button color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background-color: #6063E9; /* Same color as the login button */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  max-width: 400px; /* Limit width for better readability */
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup-buttons {
+  margin-top: 20px;
+}
+
+.popup-buttons button {
+  margin-right: 10px;
+  padding: 10px 20px; /* Add padding for better clickability */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.popup-buttons button:hover {
+  background-color: #4547EB; /* Darker shade on hover */
+}
+
+.popup-buttons button:last-child {
+  margin-right: 0;
+}

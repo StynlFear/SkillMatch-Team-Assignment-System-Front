@@ -16,7 +16,6 @@ const ProjectList = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
-  const [popupProjectId, setPopupProjectId] = useState(null);
   const projectsPerPage = 3;
 
   const fetchData = async () => {
@@ -72,8 +71,7 @@ const ProjectList = () => {
   };
 
   const handleEdit = (projectId) => {
-    setPopupProjectId(projectId); // Set the projectId for later use
-    setShowEditPopup(true); // Open the edit popup
+    setShowEditPopup(true);
   };
 
   const handleDelete = (projectId) => {

@@ -78,12 +78,9 @@ function LoginPage() {
               </label>
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
-              <p className="login-p">or continue with</p>
-              <div className="login-btn-container">
-                <AppButton>Google</AppButton>
-                <AppButton>Facebook</AppButton>
-                <AppButton>Microsoft</AppButton>
-              </div>
+              <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
+
+              
             </form>
           </div>
         </div>
