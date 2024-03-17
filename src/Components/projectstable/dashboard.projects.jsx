@@ -16,7 +16,6 @@ const ProjectList = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
-  const [popupProjectId, setPopupProjectId] = useState(null);
   const projectsPerPage = 3;
 
   const fetchData = async () => {
@@ -67,15 +66,12 @@ const ProjectList = () => {
   };
 
   const handleEdit = (projectId) => {
-    setPopupProjectId(projectId); // Set the projectId for later use
-    setShowEditPopup(true); // Open the edit popup
+    setShowEditPopup(true);
   };
-  
-  const handleDelete = (projectId) => {
-    setPopupProjectId(projectId); // Set the projectId for later use
-    setShowDeletePopup(true); // Open the delete popup
+
+  const handleDelete = async (projectId) => {
+    setShowDeletePopup(true);
   };
-  
 
   const handleStatusChange = async (projectId, status) => {
     try {
@@ -105,65 +101,63 @@ const ProjectList = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className='project-management-search-input'
       />
-      <div className='table-container'>
-        <table className='project-management-table'>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Project Period</th>
-              <th>Start Date</th>
-              <th>Deadline Date</th>
-              <th>Technology Stack</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentProjects.map((project) => (
-              <tr key={project.projectId}>
-                <td>{project.projectName}</td>
-                <td>{project.projectDescription}</td>
-                <td>
-                  <select
-                    value={project.projectStatus}
-                    onChange={(e) =>
-                      handleStatusChange(project.projectId, e.target.value)
+      <table className='project-management-table'>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Project Period</th>
+            <th>Start Date</th>
+            <th>Deadline Date</th>
+            <th>Technology Stack</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentProjects.map((project) => (
+            <tr key={project.projectId}>
+              <td>{project.projectName}</td>
+              <td>{project.projectDescription}</td>
+              <td>
+                <select
+                  value={project.projectStatus}
+                  onChange={(e) =>
+                    handleStatusChange(project.projectId, e.target.value)
+                  }
+                >
+                  <option value="not_started">Not Started</option>
+                  <option value="starting">Starting</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="closing">Closing</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </td>
+              <td>{project.projectPeriod}</td>
+              <td>{formatDate(project.projectStartDate)}</td>
+              <td>{formatDate(project.projectDeadline)}</td>
+              <td>
+                {project.technologyStack ? project.technologyStack.join(', ') : '-'}
+              </td>
+              <td>
+                <select
+                  onChange={(e) => {
+                    if (e.target.value === 'edit') {
+                      handleEdit(project.projectId);
+                    } else if (e.target.value === 'delete') {
+                      handleDelete(project.projectId);
                     }
-                  >
-                    <option value="not_started">Not Started</option>
-                    <option value="starting">Starting</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="closing">Closing</option>
-                    <option value="closed">Closed</option>
-                  </select>
-                </td>
-                <td>{project.projectPeriod}</td>
-                <td>{formatDate(project.projectStartDate)}</td>
-                <td>{formatDate(project.projectDeadline)}</td>
-                <td>
-                  {project.technologyStack ? project.technologyStack.join(', ') : '-'}
-                </td>
-                <td>
-                  <select
-                    onChange={(e) => {
-                      if (e.target.value === 'edit') {
-                        handleEdit(project.projectId);
-                      } else if (e.target.value === 'delete') {
-                        handleDelete(project.projectId);
-                      }
-                    }}
-                  >
-                    <option value="">Actions</option>
-                    <option value="edit">Edit</option>
-                    <option value="delete">Delete</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  }}
+                >
+                  <option value="">Actions</option>
+                  <option value="edit">Edit</option>
+                  <option value="delete">Delete</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <ReactPaginate
         className='pagination'
         previousLabel={'Previous'}
@@ -177,43 +171,23 @@ const ProjectList = () => {
         activeClassName={'active'}
       />
       {showEditPopup && (
-  <EditPopup
-    onClose={() => setShowEditPopup(false)}
-    onConfirm={() => {
-      setShowEditPopup(false);
-      navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
-    }}
-  />
-)}
-{showEditPopup && (
-  <EditPopup
-    onClose={() => setShowEditPopup(false)}
-    onConfirm={() => {
-      setShowEditPopup(false);
-      if (popupProjectId) {
-        navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
-      }
-    }}
-  />
-)}
-{showDeletePopup && (
-  <DeletePopup
-    onClose={() => setShowDeletePopup(false)}
-    onDelete={async () => {
-      setShowDeletePopup(false);
-      if (popupProjectId) {
-        try {
-          const response = await axios.delete(`${apiUrl}/v1/project/${popupProjectId}`);
-          console.log('Project deleted successfully:', response.data);
-          const updatedProjects = projectsData.filter(project => project.projectId !== popupProjectId);
-          setProjectsData(updatedProjects);
-        } catch (error) {
-          console.error('Error deleting project:', error);
-        }
-      }
-    }}
-  />
-)}
+        <EditPopup
+          onClose={() => setShowEditPopup(false)}
+          onConfirm={() => {
+            setShowEditPopup(false);
+            // Navigate to the edit page
+          }}
+        />
+      )}
+      {showDeletePopup && (
+        <DeletePopup
+          onClose={() => setShowDeletePopup(false)}
+          onDelete={() => {
+            setShowDeletePopup(false);
+            // Handle deletion logic here
+          }}
+        />
+      )}
     </div>
   );
 };
