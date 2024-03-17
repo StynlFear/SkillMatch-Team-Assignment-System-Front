@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import "../../css/user.updateuser.css"
+import "../../css/user.updateuser.css";
+
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
+
 function UpdateUserPage() {
   // State variables to store user information
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ function UpdateUserPage() {
 
   return (
     <div className='form-container-updateuser'>
-     <h2>Update User {username}</h2>
+     <h2>Update User</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>

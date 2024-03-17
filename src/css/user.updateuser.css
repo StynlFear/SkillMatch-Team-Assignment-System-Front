@@ -1,63 +1,68 @@
 /* Form container styles */
 .form-container-updateuser {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Form styles */
-  .form-container-updateuser form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Input field styles */
-  .form-container-updateuser form > div {
-    margin-bottom: 20px;
-  }
-  
-  /* Label styles */
-  .form-container-updateuser label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  /* Text input styles */
-  .form-container-updateuser input[type="text"],
-  .form-container-updateuser input[type="email"],
-  .form-container-updateuser input[type="password"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 1.5;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Button styles */
-  .form-container-updateuser button[type="submit"] {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .form-container-updateuser button[type="submit"]:hover {
-    background-color: #0062cc;
-  }
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  box-sizing: border-box;
+  border: 1px solid #007bff;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.form-container-updateuser form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input field styles */
+.form-container-updateuser form > div {
+  margin-bottom: 30px;
+}
+
+/* Label styles */
+.form-container-updateuser label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Text input styles */
+.form-container-updateuser input[type="text"],
+.form-container-updateuser input[type="email"],
+.form-container-updateuser input[type="password"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-container-updateuser input[type="text"]:focus,
+.form-container-updateuser input[type="email"]:focus,
+.form-container-updateuser input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+/* Button styles */
+.form-container-updateuser button[type="submit"] {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container-updateuser button[type="submit"]:hover {
+  background-color: #0056b3;
+}

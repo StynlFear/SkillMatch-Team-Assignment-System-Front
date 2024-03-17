@@ -14,8 +14,7 @@ function LoginPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState('../src/assets/half_moon.svg');
   const [transitioning, setTransitioning] = useState(false);
-
-  // Get isLoggedIn and login function from useAuth
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -24,14 +23,14 @@ function LoginPage() {
         password: password
       });
       const { accessToken, refreshToken } = response.data;
-    setToken(accessToken, refreshToken); // Store tokens in local storage
+      setToken(accessToken, refreshToken); // Store tokens in local storage
       console.log('Login Successful:', response.data);
-      navigate('/decoder')
+      navigate('/decoder');
       // Redirect user or perform any other action based on the response
     } catch (error) {
       // Handle errors
       console.error('Login Failed:', error);
-      // You can display an error message to the user or handle the error in another way
+      setErrorMessage('Invalid email or password. Please try again.'); // Set error message
     }
   };
 
@@ -47,6 +46,7 @@ function LoginPage() {
   const handleLogout = () => {
     setEmail('');
     setPassword('');
+    setErrorMessage(''); // Clear error message when logging out
   };
 
   return (
@@ -78,9 +78,8 @@ function LoginPage() {
               </label>
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
-<p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
-
-              
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
+              <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
             </form>
           </div>
         </div>
