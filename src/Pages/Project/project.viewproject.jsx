@@ -32,66 +32,47 @@ function ViewProjectPage() {
     <div className="view-project-container">
       <Sidebar/>
       <h2>View Project</h2>
-      <div className="view-project-option">
-        <strong className="view-project-title">Title:</strong>{" "}
-        <input
-          type="text"
-          value={project.projectName}
-          readOnly
-        />
-      </div>
-      <div className="view-project-option">
-        <strong className="view-project-title">Description:</strong>{" "}
-        <textarea value={project.projectDescription} readOnly />
-      </div>
-      <div>
-        <strong className="view-project-title">Period:</strong>{" "}
-        <input
-          type="text"
-          value={project.projectPeriod}
-          readOnly
-        />
-      </div>
-      <div>
-        <strong className="view-project-title">Start Date:</strong>{" "}
-        <input
-          type="date"
-          value={project.projectStartDate}
-          readOnly
-        />
-      </div>
-      {project.projectPeriod === "fixed" && (
-        <div>
-          <strong className="view-project-title">Deadline Date:</strong>{" "}
-          <input
-            type="date"
-            value={project.projectDeadline}
-            readOnly
-          />
-        </div>
-      )}
-      <div>
-        <strong className="view-project-title">Technology Stack:</strong>{" "}
-        <textarea value={project.technologyStack.join(", ")} readOnly />
-      </div>
-      <div>
-        <strong className="view-project-title">Status:</strong>{" "}
-        <input
-          type="text"
-          value={project.projectStatus}
-          readOnly
-        />
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>Title:</td>
+            <td><input type="text" value={project.projectName} readOnly /></td>
+          </tr>
+          <tr>
+            <td>Description:</td>
+            <td><textarea value={project.projectDescription} readOnly /></td>
+          </tr>
+          <tr>
+            <td>Period:</td>
+            <td><input type="text" value={project.projectPeriod} readOnly /></td>
+          </tr>
+          <tr>
+            <td>Start Date:</td>
+            <td><input type="date" value={project.projectStartDate} readOnly /></td>
+          </tr>
+          {project.projectPeriod === "fixed" && (
+            <tr>
+              <td>Deadline Date:</td>
+              <td><input type="date" value={project.projectDeadline} readOnly /></td>
+            </tr>
+          )}
+          <tr>
+            <td>Technology Stack:</td>
+            <td><textarea value={project.technologyStack.join(", ")} readOnly /></td>
+          </tr>
+          <tr>
+            <td>Status:</td>
+            <td><input type="text" value={project.projectStatus} readOnly /></td>
+          </tr>
+        </tbody>
+      </table>
 
-      {/* Button to redirect to /proposals/:projectId */}
-      <Link to={`/proposals/${projectId}`}>
-        <button>View Proposals</button>
-      </Link>
-
-      {/* Button to redirect to /team/:projectId */}
-      <Link to={`/team/${projectId}`}>
-        <button>View Team</button>
-      </Link>
+      <div className="buttons-container">
+        <Link to={`/proposals/${projectId}`}><button>View Proposals</button></Link>
+        <Link to={`/createteam/${projectId}`}><button>Create Team</button></Link>
+        <Link to={`/proposal/${projectId}`}><button>Create Proposal</button></Link>
+        <Link to={`/viewteam/${projectId}`}><button>See Teams for this project</button></Link>
+      </div>
     </div>
   );
 }

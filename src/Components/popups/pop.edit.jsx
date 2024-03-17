@@ -3,6 +3,7 @@ import "../../css/pop.css"
 
 const EditPopup = ({ onClose, onConfirm }) => {
   const handleConfirm = () => {
+    console.log("Confirm button clicked");
     onConfirm(); // Trigger the onConfirm function passed from the parent component
     onClose(); // Close the popup
   };

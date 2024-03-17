@@ -16,6 +16,7 @@ const ProjectList = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [popupProjectId, setPopupProjectId] = useState(null); // Define popupProjectId
   const projectsPerPage = 3;
 
   const fetchData = async () => {
@@ -72,14 +73,17 @@ const ProjectList = () => {
 
   const handleEdit = (projectId) => {
     setShowEditPopup(true);
+    setPopupProjectId(projectId);
   };
 
   const handleDelete = (projectId) => {
+    setShowDeletePopup(true);
     setPopupProjectId(projectId); // Set the projectId for later use
-    setShowDeletePopup(true); // Open the delete popup
   };
+
   const handleView = (projectId) => {
     navigate(`/viewproject/${projectId}`);
+    setPopupProjectId(projectId);
   };
 
   const handleStatusChange = async (projectId, status) => {
@@ -89,8 +93,8 @@ const ProjectList = () => {
         organizationId: organizationId,
       });
       console.log("Project status updated successfully");
-      setCurrentPage(0); // Reset currentPage to 0 after updating status
-      fetchData(); // Fetch data again to refresh projects after updating status
+      setCurrentPage(0);
+      fetchData();
     } catch (error) {
       console.error("Error updating project status:", error);
     }
@@ -159,8 +163,7 @@ const ProjectList = () => {
                       } else if (e.target.value === "delete") {
                         handleDelete(project.projectId);
                       } else if (e.target.value === "view") {
-                        // Corrected condition
-                        handleView(project.projectId); // Call handleView for view action
+                        handleView(project.projectId);
                       }
                     }}
                   >
@@ -188,25 +191,14 @@ const ProjectList = () => {
         activeClassName={"active"}
       />
       {showEditPopup && (
-        <EditPopup
-          onClose={() => setShowEditPopup(false)}
-          onConfirm={() => {
-            setShowEditPopup(false);
-            navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
-          }}
-        />
-      )}
-      {showEditPopup && (
-        <EditPopup
-          onClose={() => setShowEditPopup(false)}
-          onConfirm={() => {
-            setShowEditPopup(false);
-            if (popupProjectId) {
-              navigate(`/editproject/${popupProjectId}`); // Navigate to the edit page
-            }
-          }}
-        />
-      )}
+  <EditPopup
+    onClose={() => setShowEditPopup(false)}
+    onConfirm={() => {
+      setShowEditPopup(false);
+        navigate(`/editproject/${popupProjectId}`);
+    }}
+  />
+)}
       {showDeletePopup && (
         <DeletePopup
           onClose={() => setShowDeletePopup(false)}

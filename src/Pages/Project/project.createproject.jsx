@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
 import Sidebar from "../../Components/SideBar/app.sidebard";
+
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
+
 function CreateProjectPage() {
   // State variables to store the form input values
   const [title, setTitle] = useState("");
@@ -16,6 +18,7 @@ function CreateProjectPage() {
   const [techStack, setTechStack] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [organizationId, setOrganizationId] = useState(""); // State for organization ID
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -50,6 +53,8 @@ function CreateProjectPage() {
     axios.post(`${apiUrl}/v1/project/`, formData)
       .then(response => {
         console.log("Project created successfully:", response.data);
+        // Show success message
+        setSuccessMessage("Project has been created successfully!");
         // Reset the form after successful submission
         setTitle("");
         setDescription("");
@@ -164,6 +169,7 @@ function CreateProjectPage() {
         </div>
         */}
         <button type="submit">Create Project</button>
+        {successMessage && <p>{successMessage}</p>}
       </form>
     </div>
   );
