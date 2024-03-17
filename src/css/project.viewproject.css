@@ -1,46 +1,56 @@
-/* View project container styles */
 .view-project-container {
-    width: 90%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px auto;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* View project title styles */
-  .view-project-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  
-  /* View project option styles */
-  .view-project-option {
-    margin-bottom: 10px;
-  }
-  
-  /* View project label styles */
-  .view-project-label {
-    display: inline-block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  /* View project value styles */
-  .view-project-value {
-    display: inline-block;
-    font-size: 16px;
-    margin-left: 10px;
-  }
-  
-  /* Employee search styles */
-  .employee-search {
-    margin-top: 30px;
-  }
-  
+  width: 60rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.view-project-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.view-project-container .view-project-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.view-project-container .view-project-title {
+  width: 15rem;
+  font-weight: bold;
+}
+
+.view-project-container input[type="text"],
+.view-project-container input[type="date"],
+.view-project-container textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-left: 1rem;
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+.view-project-container textarea {
+  height: 10rem;
+}
+
+.view-project-container button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.view-project-container button:hover {
+  background-color: #0056b3;
+}
