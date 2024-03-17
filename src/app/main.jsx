@@ -32,6 +32,9 @@ import AvailableWorkersPage from "../Pages/TeamFind/team.assignwtop.jsx";
 import ProjectManagement from "../Pages/Project/project.allprojects.jsx";
 import UpdateUserAccounttype from "../Pages/User/user.type.jsx";
 import CustomRoleForm from "../Pages/customroles.jsx/customrole.create.jsx";
+import CreateProjectAssignment from "../Pages/Project/project.proposal.jsx";
+import ProposalManagement from "../Pages/TeamFind/team.proposal.jsx";
+import CreateTeamForm from "../Pages/team/team.createteam.jsx";
 
 const App = () => {
   const project = {
@@ -72,6 +75,9 @@ const App = () => {
         <Route path="/teamassignment" element={<AvailableWorkersPage />} /> 
         <Route path="/allprojects" element={<ProjectManagement />} /> 
         <Route path="/edittype/:userId" element={<UpdateUserAccounttype />} />
+        <Route path="/proposal/:projectId" element={<CreateProjectAssignment />} />
+        <Route path="/proposals/:projectId" element={<ProposalManagement />} /> 
+        <Route path="/createteam/:projectId" element={<CreateTeamForm />} /> 
         <Route
           path="/viewproject/:projectId"
           element={<ViewProjectPage project={project} />}
