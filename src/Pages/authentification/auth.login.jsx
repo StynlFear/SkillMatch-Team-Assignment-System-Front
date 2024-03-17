@@ -78,7 +78,7 @@ function LoginPage() {
               </label>
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
-              <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
+<p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
 
               
             </form>
