@@ -59,6 +59,12 @@ function Sidebar({ toggleSidebar }) {
               </a>
             </li>
             <li className="list">
+              <a href="/teamview" className="nav-link">
+                <i className="bx bx-bell icon"></i>
+                <span className="link">Teams</span>
+              </a>
+            </li>
+            <li className="list">
               <a href="/logout" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Logout</span>

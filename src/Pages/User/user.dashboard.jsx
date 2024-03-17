@@ -37,7 +37,7 @@ function UserDashboard() {
         </div>
       </div>
       <div className="card">
-        <div className="card-header">Departments</div>
+        <div className="card-header">Skills</div>
         <div className="card-body">
           <SkillList />
         </div>
