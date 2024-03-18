@@ -41,7 +41,12 @@ function Sidebar({ toggleSidebar }) {
                 <span className="link">Dashboard</span>
               </button>
             </li>
-            {/* Add similar button elements for other navigation links */}
+            <li className="list">
+              <button className="nav-link" onClick={() => handleNavigation("/generatelink")}>
+                <i className="bx bx-home-alt icon"></i>
+                <span className="link">Generate Link</span>
+              </button>
+            </li>
           </ul>
           <div className="bottom-content">
             <li className="list">
