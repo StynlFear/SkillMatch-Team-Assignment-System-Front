@@ -18,10 +18,11 @@ function GenerateLinkPage() {
   const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const organizationPath = `/worker`;
+  const base_url = window.location.origin; // Get the base URL
   useEffect(() => {
     const token = localStorage.getItem('refreshToken');
-  
+    
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
@@ -67,7 +68,7 @@ function GenerateLinkPage() {
       const url = response.data.url;
   
       // Construct the final link
-      const link = `https://seahorse-app-pi3di.ondigitalocean.app/worker/${url}`;
+      const link = `${base_url}/worker/${url}`;
   
       // Set the generated link
       setRandomLink(link);
