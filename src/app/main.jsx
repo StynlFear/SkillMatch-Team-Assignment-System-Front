@@ -37,7 +37,7 @@ import ProposalManagement from "../Pages/TeamFind/team.proposal.jsx";
 import CreateTeamForm from "../Pages/team/team.createteam.jsx";
 import TeamView from "../Pages/team/team.viewteam.jsx";
 import SkillAssignmentSelf from "../Pages/Skills/user.skillassignmentself.jsx";
-import ViewUser from "../Pages/User/user.viewuser.jsx";
+
 const App = () => {
   const project = {
     title: "Project Title",
@@ -83,7 +83,6 @@ const App = () => {
         <Route path="/viewteam/:projectId" element={<TeamView />} />
         <Route path="/skillassignmentself" element={<SkillAssignmentSelf />} />
         <Route path="/skillassignmentself/:userId" element={<SkillAssignment />} />
-       
         <Route path="/" element={<LoginPage />} />
         <Route
           path="/viewproject/:projectId"
