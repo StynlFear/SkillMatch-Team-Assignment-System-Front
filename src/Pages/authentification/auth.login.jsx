@@ -61,7 +61,7 @@ function LoginPage() {
   const handleLogout = () => {
     setEmail('');
     setPassword('');
-    setErrorMessage(''); // Clear error message when logging out
+    setError(''); // Clear error message when logging out
   };
 
   return (
@@ -94,7 +94,7 @@ function LoginPage() {
               </label>
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
-              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
+              {error && <p className="error-message">{error}</p>} {/* Display error message */}
               <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
             </form>
           </div>
