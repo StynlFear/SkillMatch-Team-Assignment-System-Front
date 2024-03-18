@@ -167,7 +167,6 @@ function UpdateProjectPage() {
           </select>
         </div>
         <div>
-          <RoleSelectionPage selectedRoles={selectedRoles} onSelectRole={handleSelectRole} />
         </div>
         <button type="submit">Update Project</button>
       </form>
