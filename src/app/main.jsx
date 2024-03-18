@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, HashRouter } from "react-router-dom";
 import LoginPage from "../Pages/authentification/auth.login.jsx";
 import Register from "../Pages/authentification/auth.register.jsx";
 import WorkerLink from "../Pages/authentification/auth.generatelink.jsx";
@@ -51,7 +51,7 @@ const App = () => {
     selectedRoles: ["Developer", "Designer"],
   };
   return (
-    <BrowserRouter>
+    <HashRouter>
 
       <Routes>
         {/* Public routes accessible to all users */}
@@ -92,7 +92,7 @@ const App = () => {
         />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
