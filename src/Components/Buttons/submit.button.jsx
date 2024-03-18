@@ -3,7 +3,7 @@ import React from 'react';
 function SubMitButton({ onClick, children, className, style, maxWidth }) {
   const buttonStyle = {
     ...style,
-    maxWidth: maxWidth || 'none' // Set maxWidth to the provided value or default to 'none'
+    maxWidth: maxWidth || 'none' 
   };
 
   return (

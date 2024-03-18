@@ -40,34 +40,41 @@
   background-color: #f2f2f2;
   cursor: pointer;
 }
-
+.pagination li {
+  list-style-type: none; /* Hide the markers */
+}
 .pagination {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 2rem;
+  justify-content: center;
 }
-
 .pagination a {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  text-decoration: none;
-  color: #333;
-  background-color: #f9f9f9; /* Background color */
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
 }
 
-.pagination a:hover {
-  background-color: #e6e6e6; /* Background color on hover */
+.pagination .active {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
-.pagination .active a {
-  background-color: #007bff; /* Background color when active */
+.pagination .disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.pagination .next-page{
+  background-color:  #05367A;
+  font-size: large;
   color: white;
-}
-
-.pagination .active a:hover {
-  background-color: #9626bf; /* Background color on hover when active */
-}
+ 
+ }
+ .pagination .previous-page{
+   background-color:  #05367A;
+   font-size: large;
+   margin-right: 10px;
+ color: white;
+ 
+  }
