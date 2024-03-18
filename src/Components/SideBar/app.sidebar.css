@@ -6,7 +6,7 @@ nav {
     width: 100%;
     display: flex;
     align-items: center;
-    background: #fff;
+    background: #D9D9D9;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
     z-index: 1;
   }
@@ -16,13 +16,13 @@ nav {
     margin: 0 24px;
   }
   .logo .menu-icon {
-    color: #333;
+    color: Black;
     font-size: 24px;
     margin-right: 14px;
     cursor: pointer;
   }
   .logo .logo-name {
-    color: #333;
+    color: black;
     font-size: 22px;
     font-weight: 500;
   }
@@ -33,7 +33,7 @@ nav {
     height: 100%;
     width: 260px;
     padding: 20px 0;
-    background-color: #fff;
+    background-color: #D9D9D9;
     box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
     transition: all 0.4s ease;
   }
@@ -49,6 +49,7 @@ nav {
     margin-left: 250px; /* Move main content to the right when sidebar is open */
   }
   .sidebar .sidebar-content {
+    border-radius: 20px;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -76,7 +77,7 @@ nav {
   }
   .nav-link .link {
     font-size: 16px;
-    color: #707070;
+    color: black;
     font-weight: 400;
   }
   .lists .nav-link:hover .icon,

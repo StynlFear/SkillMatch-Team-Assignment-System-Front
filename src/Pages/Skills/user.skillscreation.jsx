@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../../css/skill.createskill.css";
-
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const SkillForm = () => {
   const { departmentId } = useParams(); // Extract departmentId from URL params
-
+  const organizationId = localStorage.getItem('organizationId');
   const initialSkillState = {
     departmentId: departmentId,
-    skillName: 'Skill Name',
-    skillAuthor: 'Author Name',
-    skillCategory: 'Category Name',
+    skillName: '',
+    skillAuthor: '',
+    skillCategory: '',
   };
 
   const [newSkill, setNewSkill] = useState(initialSkillState);
@@ -20,13 +20,14 @@ const SkillForm = () => {
     setNewSkill({
       ...newSkill,
       [name]: value,
+      organizationId: organizationId, // Add organizationId to newSkill state
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://starfish-app-wpdsi.ondigitalocean.app/v1/skill/create', newSkill);
+      const response = await axios.post(`${apiUrl}/v1/skill/create`, newSkill);
       console.log('Skill created:', response.data);
       setNewSkill(initialSkillState);
     } catch (error) {
