@@ -9,39 +9,48 @@ const apiUrl = import.meta.env.VITE_APP_USER_IP;
 
 function LoginPage() {
   const [email, setEmail] = useState('');
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState('../src/assets/half_moon.svg');
   const [transitioning, setTransitioning] = useState(false);
-
-  // Get isLoggedIn and login function from useAuth
+  const [error, setError] = useState('');
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please fill in both email and password.');
+      return;
+    }
+  
     try {
       const response = await axios.post(`${apiUrl}/api/v1/user/login`, {
         email: email,
         password: password
       });
-      const { accessToken, refreshToken } = response.data;
-    setToken(accessToken, refreshToken); // Store tokens in local storage
-      console.log('Login Successful:', response.data);
-      navigate('/decoder')
-      // Redirect user or perform any other action based on the response
+  
+      console.log('Server Response:', response); // Log the entire response object
+  
+      if (response.data.status === 200) {
+        // Handle successful login
+        const { accessToken, refreshToken } = response.data;
+        setToken(accessToken, refreshToken); // Store tokens in local storage
+        console.log('Login Successful:', response.data);
+        navigate('/decoder');
+      } else {
+        // Handle authentication failure
+        setError(response.data.message || 'Incorrect email or password. Please try again.');
+      }
     } catch (error) {
-      // Handle errors
+      // Handle other errors
       console.error('Login Failed:', error);
-      // You can display an error message to the user or handle the error in another way
+      setError('An error occurred while processing your request. Please try again later.');
     }
   };
+  
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    if (darkMode) {
-      setImageSrc('../src/assets/half_moon.svg');
-    } else {
-      setImageSrc('../src/assets/sun.svg');
-    }
+    setImageSrc(darkMode ? '../src/assets/half_moon.svg' : '../src/assets/sun.svg');
   };
 
   const handleLogout = () => {
@@ -59,6 +68,7 @@ function LoginPage() {
             <h2 className="login-h2">Login</h2>
             <p className="login-h3">Please enter your login data to continue</p>
             <form>
+              {error && <p className="login-p">{error}</p>}
               <label>
                 <Input
                   type="email"
@@ -79,8 +89,6 @@ function LoginPage() {
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
               <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
-
-              
             </form>
           </div>
         </div>
