@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HashRouter as Router, Routes, Route, HashRouter } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route,BrowserRouter} from "react-router-dom";
 import LoginPage from "../Pages/authentification/auth.login.jsx";
 import Register from "../Pages/authentification/auth.register.jsx";
 import WorkerLink from "../Pages/authentification/auth.generatelink.jsx";
@@ -51,7 +51,7 @@ const App = () => {
     selectedRoles: ["Developer", "Designer"],
   };
   return (
-    <HashRouter>
+    <BrowserRouter>
 
       <Routes>
         {/* Public routes accessible to all users */}
@@ -64,7 +64,7 @@ const App = () => {
         <Route path="/worker/:url" element={<WorkerRegister />} />
         <Route element={<ProtectedRoute  />}>
         <Route path="/dashboard/" element={<UserDashboard />} />
-        <Route path="/generatelink" element={<WorkerLink />} />
+        <Route exact path="/generatelink" element={<WorkerLink />} />
         <Route path="/createdepartment" element={<CreateDepartmentPage />} />
         <Route path="/editdepartment/:departmentId" element={<EditDepartmentPage />} />
         <Route path="/createproject/" element={<CreateProjectPage />} />
@@ -92,7 +92,7 @@ const App = () => {
         />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
