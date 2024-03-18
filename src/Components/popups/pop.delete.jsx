@@ -17,7 +17,7 @@ const DeletePopup = ({ onClose, onDelete }) => {
             <button onClick={onClose}>Cancel</button>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };

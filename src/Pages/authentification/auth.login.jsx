@@ -14,7 +14,9 @@ function LoginPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState('../src/assets/half_moon.svg');
   const [transitioning, setTransitioning] = useState(false);
+
   const [error, setError] = useState('');
+
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -40,10 +42,13 @@ function LoginPage() {
         // Handle authentication failure
         setError(response.data.message || 'Incorrect email or password. Please try again.');
       }
+
     } catch (error) {
       // Handle other errors
       console.error('Login Failed:', error);
+
       setError('An error occurred while processing your request. Please try again later.');
+
     }
   };
   
@@ -56,6 +61,7 @@ function LoginPage() {
   const handleLogout = () => {
     setEmail('');
     setPassword('');
+    setErrorMessage(''); // Clear error message when logging out
   };
 
   return (
@@ -88,6 +94,7 @@ function LoginPage() {
               </label>
               <br />
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
               <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
             </form>
           </div>
