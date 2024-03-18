@@ -47,6 +47,6 @@ jobs:
         inputs:
           azureSubscription: 'script-squad-service-connection'
           appType: 'webAppLinux'
-          appName: "atc-2024-script-squad-fe-linux-web-app"
+          appName: "atc-2024-scriptsquad-fe-linux-web-app"
           package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
           startUpCommand: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
