@@ -14,16 +14,16 @@
 
 .pagination a {
   padding: 5px 10px;
-  background-color: #f2f2f2;
-  color: #333;
+  background-color: #873fb4; /* Background color for pagination links */
+  color: white;
   text-decoration: none;
   border-radius: 3px;
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
 }
 
 .pagination a:hover,
 .pagination a.active {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #ce8ef0; /* Background color on hover and when active */
 }
 
 .projects-list {
@@ -36,15 +36,18 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #333; /* Header color */
 }
 
 .projects-list h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #555; /* Subheader color */
 }
 
 .projects-list p {
   font-size: 1rem;
   margin-bottom: 5px;
+  color: #777; /* Paragraph text color */
 }
