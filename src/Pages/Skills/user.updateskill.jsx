@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import "../../css/skill.createskill.css";
 import { useNavigate } from 'react-router-dom';
+import RoleFetcher from "../../utils/user.rolefetcher";
+const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 function SkillUpdateForm() {
   const { skillId } = useParams();
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function SkillUpdateForm() {
     // Function to fetch skill data from the API
     const fetchSkillData = async () => {
       try {
-        const response = await axios.get(`https://starfish-app-wpdsi.ondigitalocean.app/v1/skill/${skillId}`);
+        const response = await axios.get(`${apiUrl}/v1/skill/${skillId}`);
         const skillData = response.data; // Assuming response.data contains skill information
         // Update state with skill information
         setSkill({
@@ -86,6 +88,7 @@ function SkillUpdateForm() {
 
   return (
     <div>
+      <RoleFetcher types={["admin","departmentManager"]} />
       <form onSubmit={handleSubmit} className='skill-form-container'>
         <div>
           <label htmlFor="skillCategory">Skill Category:</label>

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
 import Sidebar from "../../Components/SideBar/app.sidebard";
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function CreateProjectPage() {
@@ -87,6 +87,7 @@ function CreateProjectPage() {
 
   return (
     <div>
+       <RoleFetcher types={["admin","departmentManager"]} />
       <Sidebar/>
       <form onSubmit={handleSubmit} className="form-container">
         <div>

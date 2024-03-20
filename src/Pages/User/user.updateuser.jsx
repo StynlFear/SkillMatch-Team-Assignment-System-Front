@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../../css/user.updateuser.css";
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
 
 function UpdateUserPage() {
@@ -57,6 +57,7 @@ function UpdateUserPage() {
 
   return (
     <div className='form-container-updateuser'>
+      <RoleFetcher types={["admin","departmentManager"]} />
      <h2>Update User</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -77,15 +78,6 @@ function UpdateUserPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button type="submit">Update User</button>

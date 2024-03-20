@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../css/team.proposal.css";
 import Sidebar from "../../Components/SideBar/app.sidebard";
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const apiUserUrl = import.meta.env.VITE_APP_USER_IP; // Assuming you have an API endpoint for user data
 
@@ -162,6 +162,7 @@ const ProposalManagement = () => {
 
   return (
     <div>
+      <RoleFetcher types={["admin","projectManager"]} />
       <Sidebar />
       <div className="proposal-management-container">
         <h2>Proposal Management</h2>

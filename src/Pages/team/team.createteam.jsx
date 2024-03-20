@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import "../../css/team.createteam.css";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const CreateTeamForm = () => {
   const { projectId } = useParams(); // Destructure projectId from useParams()
   const [formData, setFormData] = useState({
@@ -56,6 +56,7 @@ const CreateTeamForm = () => {
 
   return (
     <div className='create-team-form-container'>
+      <RoleFetcher types={["admin","projectManager"]} />
       <h2>Create Team</h2>
       <form onSubmit={handleSubmit}>
         <div>

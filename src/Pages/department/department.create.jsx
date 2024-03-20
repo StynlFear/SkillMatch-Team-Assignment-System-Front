@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../../css/project.createproject.css";
 import Sidebar from "../../Components/SideBar/app.sidebard";
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function CreateDepartmentPage() {
@@ -35,6 +36,7 @@ function CreateDepartmentPage() {
 
   return (
     <div>
+      <RoleFetcher types={["admin"]} />
       <Sidebar/>
       <form onSubmit={handleSubmit} className="form-container">
         <div>
