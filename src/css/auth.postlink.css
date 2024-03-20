@@ -1,0 +1,47 @@
+.auth-post-link-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    background-color: white;
+    border-radius: 10px;
+    max-width: 70vh;
+    width: 60vh;
+}   
+
+.auth-post-link-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-post-link-container label {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.auth-post-link-container input {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.auth-post-link-container button {
+    background-color: #6063E9;
+    color: white;
+    padding: 15px 32px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}

@@ -123,6 +123,8 @@ const UsersList = ({ organizationName }) => {
                       handleDelete(user.userId);
                     } else if (action === "assignskill") {
                       handleAssignSkill(user.userId);
+                    } else if (action === "edittype") {
+                      navigate(`/edittype/${user.userId}`);
                     }
                   }}
                 >
@@ -130,6 +132,7 @@ const UsersList = ({ organizationName }) => {
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
                   <option value="assignskill">Assign Skill</option>
+                  <option value="edittype">Assign User AccountType</option>
                 </select>
               </td>
             </tr>

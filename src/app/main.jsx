@@ -38,6 +38,11 @@ import CreateTeamForm from "../Pages/team/team.createteam.jsx";
 import TeamView from "../Pages/team/team.viewteam.jsx";
 import SkillAssignmentSelf from "../Pages/Skills/user.skillassignmentself.jsx";
 import ResetPassword from "../utils/reset-password.jsx";
+import AuthPostLink from "../Pages/authentification/auth.postlink.jsx";
+import AssignMembers from "../Pages/department/department.assignmembers.jsx";
+import DepartmentViewUsers from "../Pages/department/department.viewusers.jsx";
+import AssignManager from "../Pages/department/department.assignmanager.jsx";
+import SkillList from "../Components/projectstable/dashboard.skills.jsx";
 
 const App = () => {
   const project = {
@@ -60,6 +65,7 @@ const App = () => {
         <Route path="/projectlist" element={<ProjectList />} />
         <Route path="/userlist" element={<UsersList />} />
         <Route path="/decoder" element={<JwtDecoder />} />
+        <Route path="/userlink" element={<AuthPostLink />} />
         <Route path="/departmentlist/:organizationId" element={<DepartmentsList />} />
         <Route path="/worker/:url" element={<WorkerRegister />} />
         <Route element={<ProtectedRoute  />}>
@@ -85,6 +91,10 @@ const App = () => {
         <Route path="/skillassignmentself" element={<SkillAssignmentSelf />} />
         <Route path="/skillassignmentself/:userId" element={<SkillAssignment />} />
         <Route path="/passwordreset" element={<ResetPassword />} />
+        <Route path="/assigndepartment/:departmentId" element={<AssignMembers/>} />
+        <Route path="/skilllist/:departmentId" element={<SkillList/>} />
+        <Route path="/viewdepartment/:departmentId" element={<DepartmentViewUsers/>} />
+        <Route path="/assignmanager/:departmentId" element={<AssignManager/>} />
         <Route path="/" element={<LoginPage />} />
         <Route
           path="/viewproject/:projectId"

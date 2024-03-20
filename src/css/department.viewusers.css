@@ -1,0 +1,47 @@
+.department-view-users {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Updated property */
+    background-color: white;
+    border-radius: 10px;
+    max-width: 150vh;
+    width: 100vh;
+}
+
+.department-view-users h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.department-view-users ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.department-view-users li {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    width: 250px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .department-view-users li {
+        width: 100%;
+    }
+}
