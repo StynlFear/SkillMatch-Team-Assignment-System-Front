@@ -58,6 +58,10 @@ const CustomRoles = () => {
         setShowDeletePopup(true); // Open the delete popup
     };
 
+    const handleCreateRole = () => {
+        navigate(`/createrole/${organizationId}`); // Navigate to the create role page
+    };
+
     return (
         <div className='role-management-container'>
             <input
@@ -67,6 +71,7 @@ const CustomRoles = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className='role-management-search-input'
             />
+            <button onClick={handleCreateRole}>Create Role</button>
             <table className='role-management-table'>
                 <thead>
                     <tr>
