@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import "../../css/dashboard.listskills.css";
 import EditPopup from '../popups/pop.edit'; // Import EditPopup component
@@ -10,6 +10,7 @@ const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const SkillList = () => {
   const organizationId = localStorage.getItem("organizationId");
+  const {departmentId} = useParams();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +22,7 @@ const SkillList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/v1/skill/all/19c9486f-5bce-472a-ad17-00899256e227`);
+      const response = await axios.get(`${apiUrl}/v1/skill/all/${departmentId}`);
       console.log("API Response:", response.data);
       setSkillsData(response.data || []);
     } catch (error) {

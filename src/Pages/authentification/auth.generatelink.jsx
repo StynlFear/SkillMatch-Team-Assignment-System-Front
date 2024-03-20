@@ -68,13 +68,13 @@ function GenerateLinkPage() {
       const url = response.data.url;
 
       // Construct the final link
-      const link = `${base_url}/worker/${url}`;
+      const link = `  ${url}`;
 
       // Prepare data for email template
       const templateParams = {
         to_name: email,
         from_name: 'SkillMatch Service',
-        message: `Please click the following link to complete your registration: ${link}`
+        message: `Please copy the following code to complete your registration: ${link}`
       };
 
       // Send email using EmailJS with the template ID

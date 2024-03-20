@@ -75,6 +75,15 @@ const DepartmentList = () => {
       setShowDeletePopup(true);
     } else if (action === 'createskill') {
       navigate(`/createskill/${departmentId}`);
+    } else if (action === 'assignmembers') {
+      navigate(`/assigndepartment/${departmentId}`);
+    } else if (action === 'viewmembers') {
+      navigate(`/viewdepartment/${departmentId}`);
+    }
+    else if (action === 'assignmanager') {
+      navigate(`/assignmanager/${departmentId}`);
+    } else if (action === 'skills') {
+      navigate(`/skilllist/${departmentId}`);
     }
   };
 
@@ -122,6 +131,10 @@ const DepartmentList = () => {
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
                   <option value="createskill">Create Skill</option>
+                  <option value="assignmembers">Assign Members</option>
+                  <option value="assignmanager">Assign Department Manager</option>
+                  <option value="viewmembers">View Employees</option>
+                  <option value="skills">View Skills</option>
                 </select>
               </td>
             </tr>

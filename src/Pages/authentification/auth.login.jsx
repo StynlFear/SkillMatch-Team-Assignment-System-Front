@@ -96,6 +96,7 @@ function LoginPage() {
               <SubmitButton onClick={handleLogin}>Login</SubmitButton>
               {error && <p className="error-message">{error}</p>} {/* Display error message */}
               <p className="login-p">Don't have an account? <a href="/register">Sign up</a></p>
+              <p className="login-p">Already have a link to an organization?  <a href="/userlink">To the page</a></p>
             </form>
           </div>
         </div>
