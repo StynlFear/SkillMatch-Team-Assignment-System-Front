@@ -66,16 +66,26 @@ const DepartmentList = () => {
     setCurrentPage(selected);
   };
 
-  const handleEdit = (departmentId) => {
-    setPopupDepartmentId(departmentId); // Set the departmentId for later use
-    setShowEditPopup(true); // Open the edit popup
+  const handleEdit = (departmentId, action) => {
+    if (action === 'edit') {
+      setPopupDepartmentId(departmentId);
+      setShowEditPopup(true);
+    } else if (action === 'delete') {
+      setPopupDepartmentId(departmentId);
+      setShowDeletePopup(true);
+    } else if (action === 'createskill') {
+      navigate(`/createskill/${departmentId}`);
+    } else if (action === 'assignmembers') {
+      navigate(`/assigndepartment/${departmentId}`);
+    } else if (action === 'viewmembers') {
+      navigate(`/viewdepartment/${departmentId}`);
+    }
+    else if (action === 'assignmanager') {
+      navigate(`/assignmanager/${departmentId}`);
+    } else if (action === 'skills') {
+      navigate(`/skilllist/${departmentId}`);
+    }
   };
-  
-  const handleDelete = (departmentId) => {
-    setPopupDepartmentId(departmentId); // Set the departmentId for later use
-    setShowDeletePopup(true); // Open the delete popup
-  };
-  
 
   const handleStatusChange = async (departmentId, status) => {
     try {
@@ -84,8 +94,8 @@ const DepartmentList = () => {
         organizationId: organizationId,
       });
       console.log('Department status updated successfully');
-      setCurrentPage(0); // Reset currentPage to 0 after updating status
-      fetchData(); // Fetch data again to refresh departments after updating status
+      setCurrentPage(0);
+      fetchData();
     } catch (error) {
       console.error('Error updating department status:', error);
     }
@@ -114,16 +124,17 @@ const DepartmentList = () => {
               <td>
                 <select
                   onChange={(e) => {
-                    if (e.target.value === 'edit') {
-                      handleEdit(department.departmentId);
-                    } else if (e.target.value === 'delete') {
-                      handleDelete(department.departmentId);
-                    }
+                    handleEdit(department.departmentId, e.target.value);
                   }}
                 >
                   <option value="">Actions</option>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
+                  <option value="createskill">Create Skill</option>
+                  <option value="assignmembers">Assign Members</option>
+                  <option value="assignmanager">Assign Department Manager</option>
+                  <option value="viewmembers">View Employees</option>
+                  <option value="skills">View Skills</option>
                 </select>
               </td>
             </tr>
@@ -148,7 +159,7 @@ const DepartmentList = () => {
           onConfirm={() => {
             setShowEditPopup(false);
             if (popupDepartmentId) {
-              navigate(`/editdepartment/${popupDepartmentId}`); // Navigate to the edit page
+              navigate(`/editdepartment/${popupDepartmentId}`);
             }
           }}
         />

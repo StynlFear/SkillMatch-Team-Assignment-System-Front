@@ -85,6 +85,10 @@ const UsersList = ({ organizationName }) => {
     }
   };
 
+  const handleAssignSkill = (userId) => {
+    navigate(`/skillassignmentself/${userId}`);
+  };
+
   return (
     <div className='project-management-container'>
       <input
@@ -112,16 +116,23 @@ const UsersList = ({ organizationName }) => {
               <td>
                 <select
                   onChange={(e) => {
-                    if (e.target.value === "edit") {
+                    const action = e.target.value;
+                    if (action === "edit") {
                       handleEdit(user.userId);
-                    } else if (e.target.value === "delete") {
+                    } else if (action === "delete") {
                       handleDelete(user.userId);
+                    } else if (action === "assignskill") {
+                      handleAssignSkill(user.userId);
+                    } else if (action === "edittype") {
+                      navigate(`/edittype/${user.userId}`);
                     }
                   }}
                 >
                   <option value="">Actions</option>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
+                  <option value="assignskill">Assign Skill</option>
+                  <option value="edittype">Assign User AccountType</option>
                 </select>
               </td>
             </tr>

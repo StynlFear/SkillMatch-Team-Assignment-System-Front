@@ -1,30 +1,5 @@
-.pagination {
-  display: flex;
-  justify-content: center; /* Center pagination horizontally */
-  align-items: center; /* Center pagination vertically */
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
 
-.pagination li {
-  display: inline-block;
-  margin: 0 5px;
-}
 
-.pagination a {
-  padding: 5px 10px;
-  background-color: #873fb4; /* Background color for pagination links */
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
-}
-
-.pagination a:hover,
-.pagination a.active {
-  background-color: #ce8ef0; /* Background color on hover and when active */
-}
 
 .projects-list {
   display: flex;

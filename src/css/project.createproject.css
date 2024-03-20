@@ -5,9 +5,8 @@
   margin: 20px auto; /* Center horizontally and add space from top */
   padding: 20px;
   box-sizing: border-box;
-  border: 1px solid #153fe9;
   border-radius: 4px;
-  background-color: #211ede95;
+  background-color: #FFFFFF;
   margin-top: 80px;
 }
 
@@ -62,7 +61,7 @@
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #180ade; /* Blue button color */
+  background-color: #6063E9; /* Blue button color */
   color: #ffffffe8;
   font-size: 16px;
   cursor: pointer;

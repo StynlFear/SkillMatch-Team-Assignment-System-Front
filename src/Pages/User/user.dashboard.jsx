@@ -6,6 +6,7 @@ import ProjectsList from "../../Components/projectstable/dashboard.projects";
 import DepartmentsList from "../../Components/projectstable/dashboard.departments";
 import "../../css/user.dashboard.css";
 import SkillList from "../../Components/projectstable/dashboard.skills";
+import CustomRoles from "../../Components/projectstable/dashboard.customroles";
 
 function UserDashboard() {
   const organizationId = localStorage.getItem("organizationId");
@@ -37,9 +38,9 @@ function UserDashboard() {
         </div>
       </div>
       <div className="card">
-        <div className="card-header">Skills</div>
+        <div className="card-header">Custom Roles</div>
         <div className="card-body">
-          <SkillList />
+          <CustomRoles />
         </div>
       </div>
     </div>
