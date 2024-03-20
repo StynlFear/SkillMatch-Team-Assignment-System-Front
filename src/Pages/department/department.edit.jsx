@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../css/project.createproject.css";
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function EditDepartmentPage() {
@@ -31,6 +32,7 @@ function EditDepartmentPage() {
   
     return (
       <div>
+        <RoleFetcher types={["admin","departmentManager"]} />
         <h2>Edit Department</h2>
         <form onSubmit={handleSubmit} className="form-container">
           <div>

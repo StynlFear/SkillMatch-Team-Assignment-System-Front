@@ -3,7 +3,7 @@ import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 import "../../css/customrole.create.css";
 import { useParams } from 'react-router-dom';
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const CustomRoleForm = () => {
@@ -43,6 +43,7 @@ const CustomRoleForm = () => {
 
   return (
     <div className="custom-role-form-container">
+       <RoleFetcher types={["admin","departmentManager"]} />
       <h2>Create Custom Role</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

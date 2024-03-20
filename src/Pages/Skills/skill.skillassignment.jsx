@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../../css/skill.assignment.css"
 import { jwtDecode } from 'jwt-decode';
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function SkillAssignment() {
@@ -67,6 +68,7 @@ function SkillAssignment() {
     return (
         <div>
             <h2>Assign Skills</h2>
+            <RoleFetcher types={["admin","projectManager","departmentManager"]} />
             {error && <div>{error}</div>}
             <form onSubmit={handleAssignSkill} className='skill-assignment-container'>
                 <div>

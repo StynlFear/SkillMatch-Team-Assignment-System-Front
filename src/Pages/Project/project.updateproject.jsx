@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import RoleSelectionPage from "../../Components/Role selector/fetchroles";
 import "../../css/project.createproject.css";
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 function UpdateProjectPage() {
@@ -87,6 +88,7 @@ function UpdateProjectPage() {
 
   return (
     <div>
+      <RoleFetcher types={["admin","projectManager"]} />
       <h2>Update Project</h2>
       <form onSubmit={handleSubmit} className="form-container">
         <div>

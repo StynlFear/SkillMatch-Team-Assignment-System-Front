@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateProjectAssignment from '../Project/project.proposal';
 import "../../css/project.available.css";
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const AvailableWorkersPage = () => {
@@ -53,6 +54,7 @@ const AvailableWorkersPage = () => {
 
   return (
     <div className='available-workers-page-container'>
+      <RoleFetcher types={["admin","departmentManager"]} />
       <h2>Available Workers</h2>
       {/* Dropdown to select project */}
       <select value={selectedProject} onChange={(e) => setSelectedProject(e.target.value)}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const AssignManager = () => {
@@ -48,6 +48,7 @@ const AssignManager = () => {
 
     return (
         <div>
+            <RoleFetcher types={["admin"]} />
             <h1>Assign Manager to Department</h1>
             <input type="text" placeholder="Search by name" value={searchTerm} onChange={handleSearch} />
             <select value={assignedManager} onChange={(event) => setAssignedManager(event.target.value)}>

@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../../css/project.assignment.css";
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
 const CreateProjectAssignment = () => {
@@ -115,6 +116,7 @@ const CreateProjectAssignment = () => {
   return (
     <div className="create-project-assignment-container">
       {/* Search input for filtering users */}
+      <RoleFetcher types={["admin","projectManager","departmentManager"]} />
       <input
         type="text"
         placeholder="Search users by name"

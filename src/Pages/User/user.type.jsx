@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import RoleFetcher from "../../utils/user.rolefetcher";
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
 
 function UpdateUserAccounttype() {
@@ -65,6 +65,7 @@ function UpdateUserAccounttype() {
 
   return (
     <div>
+      <RoleFetcher types={["admin"]} />
       <h2>Update User Account Type</h2>
       <div>
         <h3>Current Account Types:</h3>
