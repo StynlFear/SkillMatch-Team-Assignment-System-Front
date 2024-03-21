@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import "../../css/dashboard.listroles.css";
 import EditPopup from '../popups/pop.edit'; // Import EditPopup component
 import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
+import RoleChecker from '../../utils/role-checker';
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
@@ -71,7 +72,9 @@ const CustomRoles = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className='role-management-search-input'
             />
+            <RoleChecker requiredTypes={['admin','departmentManager']}>
             <button onClick={handleCreateRole}>Create Role</button>
+            </RoleChecker>
             <table className='role-management-table'>
                 <thead>
                     <tr>
@@ -94,8 +97,10 @@ const CustomRoles = () => {
                                     }}
                                 >
                                     <option value="">Actions</option>
+                                    <RoleChecker requiredTypes={['admin','departmentManager']}>
                                     <option value="edit">Edit</option>
                                     <option value="delete">Delete</option>
+                                    </RoleChecker>
                                 </select>
                             </td>
                         </tr>

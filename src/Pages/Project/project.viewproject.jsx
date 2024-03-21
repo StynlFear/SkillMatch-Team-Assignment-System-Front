@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import "../../css/project.viewproject.css";
 import Sidebar from "../../Components/SideBar/app.sidebard";
+import RoleChecker from "../../utils/role-checker";
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
@@ -68,9 +69,13 @@ function ViewProjectPage() {
       </table>
 
       <div className="buttons-container">
+        <RoleChecker requiredTypes={["admin", "departmentManager"]}>
         <Link to={`/proposals/${projectId}`}><button>View Proposals</button></Link>
+        </RoleChecker>
+        <RoleChecker requiredTypes={["admin", "projectManager"]}>
         <Link to={`/createteam/${projectId}`}><button>Create Team</button></Link>
         <Link to={`/proposal/${projectId}`}><button>Create Proposal</button></Link>
+        </RoleChecker>
         <Link to={`/viewteam/${projectId}`}><button>See Teams for this project</button></Link>
       </div>
     </div>

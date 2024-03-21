@@ -43,6 +43,7 @@ import AssignMembers from "../Pages/department/department.assignmembers.jsx";
 import DepartmentViewUsers from "../Pages/department/department.viewusers.jsx";
 import AssignManager from "../Pages/department/department.assignmanager.jsx";
 import SkillList from "../Components/projectstable/dashboard.skills.jsx";
+import UserAssignedSkills from "../Pages/User/user.assignedskills.jsx";
 
 const App = () => {
   const project = {
@@ -94,6 +95,7 @@ const App = () => {
         <Route path="/assigndepartment/:departmentId" element={<AssignMembers/>} />
         <Route path="/skilllist/:departmentId" element={<SkillList/>} />
         <Route path="/viewdepartment/:departmentId" element={<DepartmentViewUsers/>} />
+        <Route path="/assignedskills/:userId" element={<UserAssignedSkills  />} />
         <Route path="/assignmanager/:departmentId" element={<AssignManager/>} />
         <Route path="/" element={<LoginPage />} />
         <Route

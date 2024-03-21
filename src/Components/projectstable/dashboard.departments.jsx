@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import "../../css/project.allprojects.css";
 import EditPopup from '../popups/pop.edit'; // Import EditPopup component
 import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
+import RoleChecker from '../../utils/role-checker';
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
@@ -128,11 +129,15 @@ const DepartmentList = () => {
                   }}
                 >
                   <option value="">Actions</option>
+                  <RoleChecker requiredTypes={['admin','departmentManager']}>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
                   <option value="createskill">Create Skill</option>
                   <option value="assignmembers">Assign Members</option>
+                  </RoleChecker>
+                  <RoleChecker requiredTypes={['admin']}>
                   <option value="assignmanager">Assign Department Manager</option>
+                  </RoleChecker>
                   <option value="viewmembers">View Employees</option>
                   <option value="skills">View Skills</option>
                 </select>
