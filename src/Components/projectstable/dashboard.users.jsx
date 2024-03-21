@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import "../../css/project.allprojects.css"; // Assuming this CSS file contains the styling for both components
 import EditPopup from '../popups/pop.edit'; // Import EditPopup component
 import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
+import RoleChecker from '../../utils/role-checker';
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
@@ -125,14 +126,19 @@ const UsersList = ({ organizationName }) => {
                       handleAssignSkill(user.userId);
                     } else if (action === "edittype") {
                       navigate(`/edittype/${user.userId}`);
+                    } else if (action === "assignedskills") {
+                      navigate(`/assignedskills/${user.userId}`);
                     }
                   }}
                 >
                   <option value="">Actions</option>
+                  <RoleChecker requiredTypes={['admin']}>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>
                   <option value="assignskill">Assign Skill</option>
                   <option value="edittype">Assign User AccountType</option>
+                  </RoleChecker>
+                  <option value="assignedskills">Assigned Skill</option>
                 </select>
               </td>
             </tr>

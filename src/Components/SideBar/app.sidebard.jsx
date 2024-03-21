@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "./app.sidebar.css"; // Import CSS for styling
+import RoleChecker from "../../utils/role-checker";
 
 function Sidebar({ toggleSidebar }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,37 +34,46 @@ function Sidebar({ toggleSidebar }) {
                 <span className="link">Dashboard</span>
               </a>
             </li>
+            <RoleChecker requiredTypes={['admin','departmentManager']}>
             <li className="list">
               <a href="/createproject" className="nav-link">
                 <i className="bx bx-bar-chart-alt-2 icon"></i>
                 <span className="link">Projects</span>
               </a>
             </li>
+            </RoleChecker>
+            <RoleChecker requiredTypes={['admin']}>
             <li className="list">
               <a href="/generatelink" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Users</span>
               </a>
             </li>
-
+          </RoleChecker>
+            <RoleChecker requiredTypes={['admin','departmentManager']}>
             <li className="list">
               <a href="/createdepartment" className="nav-link">
                 <i className="bx bx-message-rounded icon"></i>
                 <span className="link">Departments</span>
               </a>
             </li>
+            </RoleChecker>
+            <RoleChecker requiredTypes={['admin']}>
             <li className="list">
               <a href="/generatelink" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Register Link</span>
               </a>
             </li>
+            </RoleChecker>
+            <RoleChecker requiredTypes={['admin','projectManager']}>
             <li className="list">
               <a href="/teamview" className="nav-link">
                 <i className="bx bx-bell icon"></i>
                 <span className="link">Teams</span>
               </a>
             </li>
+            </RoleChecker>
             <li className="list">
               <a href="/logout" className="nav-link">
                 <i className="bx bx-bell icon"></i>

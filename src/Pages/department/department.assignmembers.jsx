@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import RoleFetcher from "../../utils/user.rolefetcher";
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
-
+import "../../css/department.assignmembers.css";
 const AssignMembers = () => {
   const organizationName = localStorage.getItem("organizationName");
   const { departmentId } = useParams();
@@ -57,7 +57,7 @@ const AssignMembers = () => {
   );
 
   return (
-    <div>
+    <div className="assign-members-container">
       <RoleFetcher types={["admin","departmentManager"]} />
       <h1>Assign Members to Department</h1>
       <input

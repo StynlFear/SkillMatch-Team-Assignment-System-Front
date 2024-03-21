@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import RoleFetcher from "../../utils/user.rolefetcher";
+import Sidebar from "../../Components/SideBar/app.sidebard";
 const apiuserUrl = import.meta.env.VITE_APP_USER_IP;
-
+import "../../css/user.type.css";
 function UpdateUserAccounttype() {
   const { userId } = useParams();
   const organizationId = localStorage.getItem("organizationId");
@@ -65,6 +66,9 @@ function UpdateUserAccounttype() {
 
   return (
     <div>
+      <Sidebar/>
+    <div className='update-user-account-type-container'>
+      
       <RoleFetcher types={["admin"]} />
       <h2>Update User Account Type</h2>
       <div>
@@ -90,6 +94,7 @@ function UpdateUserAccounttype() {
         </select>
         <button onClick={handleAddAccountType} disabled={isLoading}>Add Account Type</button>
       </div>
+    </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import "../../css/dashboard.listskills.css";
 import EditPopup from '../popups/pop.edit'; // Import EditPopup component
 import DeletePopup from '../popups/pop.delete'; // Import DeletePopup component
+import RoleChecker from '../../utils/role-checker';
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
@@ -84,7 +85,9 @@ const SkillList = () => {
             <th>Actions</th>
           </tr>
         </thead>
+        
         <tbody>
+          
           {currentSkills.map((skill) => (
             <tr key={skill.skillId}>
               <td>{skill.skillName}</td>
@@ -98,6 +101,7 @@ const SkillList = () => {
                     }
                   }}
                 >
+                  
                   <option value="">Actions</option>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>

@@ -4,6 +4,7 @@ import Sidebar from "../../Components/SideBar/app.sidebard";
 import UsersList from "../../Components/projectstable/dashboard.users";
 import ProjectsList from "../../Components/projectstable/dashboard.projects";
 import DepartmentsList from "../../Components/projectstable/dashboard.departments";
+import RoleChecker from "../../utils/role-checker";
 import "../../css/user.dashboard.css";
 import SkillList from "../../Components/projectstable/dashboard.skills";
 import CustomRoles from "../../Components/projectstable/dashboard.customroles";
@@ -37,12 +38,14 @@ function UserDashboard() {
           <DepartmentsList organizationId={organizationId} />
         </div>
       </div>
+
       <div className="card">
         <div className="card-header">Custom Roles</div>
         <div className="card-body">
           <CustomRoles />
         </div>
       </div>
+
     </div>
   );
 }

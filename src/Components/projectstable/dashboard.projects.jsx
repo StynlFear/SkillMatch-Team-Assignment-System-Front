@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import "../../css/project.allprojects.css";
 import EditPopup from "../popups/pop.edit"; // Import EditPopup component
 import DeletePopup from "../popups/pop.delete"; // Import DeletePopup component
+import RoleChecker from "../../utils/role-checker";
 
 const apiUrl = import.meta.env.VITE_APP_MASTER_IP;
 
@@ -134,17 +135,20 @@ const ProjectList = () => {
                 <td>{project.projectName}</td>
                 <td>{project.projectDescription}</td>
                 <td>
+                 
                   <select
                     value={project.projectStatus}
                     onChange={(e) =>
                       handleStatusChange(project.projectId, e.target.value)
                     }
                   >
+                     <RoleChecker requiredTypes={["admin", "projectManager"]}>
                     <option value="not_started">Not Started</option>
                     <option value="starting">Starting</option>
                     <option value="in_progress">In Progress</option>
                     <option value="closing">Closing</option>
                     <option value="closed">Closed</option>
+                    </RoleChecker>
                   </select>
                 </td>
                 <td>{project.projectPeriod}</td>
@@ -168,8 +172,10 @@ const ProjectList = () => {
                     }}
                   >
                     <option value="">Actions</option>
+                    <RoleChecker requiredTypes={["admin", "projectManager"]}>
                     <option value="edit">Edit</option>
                     <option value="delete">Delete</option>
+                    </RoleChecker>
                     <option value="view">View</option>
                   </select>
                 </td>
